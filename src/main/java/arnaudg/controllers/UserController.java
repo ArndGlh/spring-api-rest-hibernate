@@ -1,7 +1,7 @@
 package arnaudg.controllers;
 
 import arnaudg.models.User;
-import arnaudg.models.dao.UserDAO;
+import arnaudg.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +24,7 @@ public class UserController {
     // TODO return JSON values
 
     @Autowired
-    private UserDAO userDao;
+    private UserService userDao;
 
     /**
      * Get all the users.

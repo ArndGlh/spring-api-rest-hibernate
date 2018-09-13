@@ -1,7 +1,7 @@
 package arnaudg.controllers;
 
-import arnaudg.models.Jeu;
-import arnaudg.models.dao.JeuDAO;
+import arnaudg.models.Game;
+import arnaudg.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,20 +10,20 @@ import java.util.List;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
-@RequestMapping(value = "/jeux")
-public class JeuController {
+@RequestMapping(value = "/games")
+public class GameController {
 
     @Autowired
-    private JeuDAO jeuDAO;
+    private GameService gameService;
 
     /**
      * Get all the games.
      */
-    @RequestMapping(method=GET, value = "/")
+    @RequestMapping(method=GET, value = "")
     @ResponseBody
-    public List<Jeu> findAll() {
+    public List<Game> findAll() {
         try {
-            return jeuDAO.getAll();
+            return gameService.getAll();
         } catch (Exception ex) {
             System.err.println("Games not found: " + ex.toString()); // TODO Logger
         }
@@ -35,11 +35,11 @@ public class JeuController {
      */
     @RequestMapping(method=GET, value = "/{id}")
     @ResponseBody
-    public Jeu findById(@PathVariable("id") int id) {
+    public Game findById(@PathVariable("id") int id) {
         try {
-            return jeuDAO.getById(id);
+            return gameService.getById(id);
         } catch (Exception ex) {
-            System.err.println("Jeu not found: " + ex.toString()); // TODO Logger
+            System.err.println("Game not found: " + ex.toString()); // TODO Logger
         }
         return null;
     }

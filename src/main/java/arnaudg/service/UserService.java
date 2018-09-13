@@ -1,4 +1,4 @@
-package arnaudg.models.dao;
+package arnaudg.service;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 @Transactional
-public class UserDAO {
+public class UserService {
 
     @PersistenceContext
     private EntityManager entityManager;

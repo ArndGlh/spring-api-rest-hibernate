@@ -12,19 +12,17 @@ import javax.persistence.Table;
  * Hibernate provides JPA implementation
  */
 @Entity
-@Table(name="jeu")
-public class Jeu {
+@Table(name="game")
+public class Game {
 
     @Id
     @Column(name="id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 
-    private String titre;
+    private String title;
     private String genre;
-
-    @Column(name="année")
-    private String annee;
+    private String year;
 
     public int getId() {
         return id;
@@ -34,12 +32,12 @@ public class Jeu {
         this.id = id;
     }
 
-    public String getTitre() {
-        return titre;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTitre(String titre) {
-        this.titre = titre;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getGenre() {
@@ -50,21 +48,21 @@ public class Jeu {
         this.genre = genre;
     }
 
-    public String getAnnee() {
-        return annee;
+    public String getYear() {
+        return year;
     }
 
-    public void setAnnee(String annee) {
-        this.annee = annee;
+    public void setYear(String year) {
+        this.year = year;
     }
 
     @Override
     public String toString() {
-        return "Jeu{" +
+        return "Game{" +
                 "id=" + id +
-                ", titre='" + titre + '\'' +
+                ", title='" + title + '\'' +
                 ", genre='" + genre + '\'' +
-                ", annee='" + annee + '\'' +
+                ", year='" + year + '\'' +
                 '}';
     }
 }

@@ -24,6 +24,9 @@ public class User {
     @NotNull
     private String name;
 
+    @NotNull
+    private String password;
+
     public User() {
     }
 
@@ -60,4 +63,11 @@ public class User {
         this.name = value;
     }
 
-} // class User
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+}

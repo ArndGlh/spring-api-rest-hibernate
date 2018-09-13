@@ -25,15 +25,15 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `jeu`
+-- Structure de la table `game`
 --
 
-DROP TABLE IF EXISTS `jeu`;
-CREATE TABLE IF NOT EXISTS `jeu` (
+DROP TABLE IF EXISTS `game`;
+CREATE TABLE IF NOT EXISTS `game` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `titre` varchar(80) NOT NULL,
+  `title` varchar(80) NOT NULL,
   `genre` varchar(80) DEFAULT NULL,
-  `année` int(4) DEFAULT NULL,
+  `year` int(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 COMMIT;
@@ -51,3 +51,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 COMMIT;
+
+INSERT INTO `game` (`id`, `title`, `genre`, `year`) VALUES
+(1, 'Zelda : Breath of the wild', 'Action-aventure', 2017),
+(2, 'Mario Kart 8 deluxe', 'Course', 2017);
