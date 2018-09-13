@@ -47,11 +47,7 @@ public class JeuDAO {
         return entityManager.createQuery("from Jeu").getResultList();
     }
 
-    @SuppressWarnings("unchecked")
-    public List<Jeu> getById(int id){
-        return entityManager.createQuery("from Jeu where id=:id")
-                .setParameter("id", id)
-                .setMaxResults(1)
-                .getResultList();
+    public Jeu getById(int id){
+        return entityManager.find(Jeu.class, id);
     }
 }

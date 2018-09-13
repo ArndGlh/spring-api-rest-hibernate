@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+
 @RestController
+@RequestMapping(value = "/jeux")
 public class JeuController {
 
     @Autowired
@@ -16,7 +19,7 @@ public class JeuController {
     /**
      * Get all the games.
      */
-    @RequestMapping(value = "/jeux")
+    @RequestMapping(method=GET, value = "/")
     @ResponseBody
     public List<Jeu> findAll() {
         try {
@@ -30,9 +33,9 @@ public class JeuController {
     /**
      * Get one game by id.
      */
-    @RequestMapping(value = "/jeux/{id}")
+    @RequestMapping(method=GET, value = "/{id}")
     @ResponseBody
-    public List<Jeu> findById(@PathVariable("id") int id) {
+    public Jeu findById(@PathVariable("id") int id) {
         try {
             return jeuDAO.getById(id);
         } catch (Exception ex) {

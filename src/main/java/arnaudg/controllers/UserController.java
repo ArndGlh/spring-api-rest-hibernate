@@ -5,15 +5,20 @@ import arnaudg.models.dao.UserDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
 import java.util.List;
+
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
  * Class UserController
  */
 @Controller
+@RequestMapping(value = "/user")
 public class UserController {
 
     // TODO return JSON values
@@ -22,10 +27,38 @@ public class UserController {
     private UserDAO userDao;
 
     /**
+     * Get all the users.
+     */
+    @RequestMapping(method=GET, value = "/findAll")
+    @ResponseBody
+    public List<User> findAll() {
+        try {
+            return userDao.getAll();
+        } catch (Exception ex) {
+            System.err.println("Users not found: " + ex.toString()); // TODO Logger
+        }
+        return null;
+    }
+
+    /**
+     * Get one user by its id.
+     */
+    @RequestMapping(method=GET, value = "/{id}")
+    @ResponseBody
+    public User findAll(@PathVariable("id") int id) {
+        try {
+            return userDao.getById(id);
+        } catch (Exception ex) {
+            System.err.println("User not found: " + ex.toString()); // TODO Logger
+        }
+        return null;
+    }
+
+    /**
      * Create a new user with an auto-generated id and email and name as passed
      * values.
      */
-    @RequestMapping(value = "/create")
+    @RequestMapping(method=POST, value = "/create")
     @ResponseBody
     public String create(String email, String name) {
         try {
@@ -40,7 +73,7 @@ public class UserController {
     /**
      * Delete the user with the passed id.
      */
-    @RequestMapping(value = "/delete")
+    @RequestMapping(method=DELETE, value = "/delete")
     @ResponseBody
     public String delete(long id) {
         try {
@@ -53,23 +86,9 @@ public class UserController {
     }
 
     /**
-     * Get all the users.
-     */
-    @RequestMapping(value = "/users")
-    @ResponseBody
-    public List<User> findAll() {
-        try {
-            return userDao.getAll();
-        } catch (Exception ex) {
-            System.err.println("Users not found: " + ex.toString()); // TODO Logger
-        }
-        return null;
-    }
-
-    /**
      * Retrieve the id for the user with the passed email address.
      */
-    @RequestMapping(value = "/get-by-email")
+    @RequestMapping(method=GET, value = "/get-by-email")
     @ResponseBody
     public String getByEmail(String email) {
         String userId;
@@ -85,7 +104,7 @@ public class UserController {
     /**
      * Update the email and the name for the user indentified by the passed id.
      */
-    @RequestMapping(value = "/update")
+    @RequestMapping(method=PUT, value = "/update")
     @ResponseBody
     public String updateName(long id, String email, String name) {
         try {
