@@ -4,6 +4,7 @@ package arnaudg.web.error;
 import javax.persistence.EntityNotFoundException;
 
 import arnaudg.web.exception.GameNotFoundException;
+import arnaudg.web.exception.RessourceNotFoundException;
 import arnaudg.web.exception.UserNotFoundException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataAccessException;
@@ -56,15 +57,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     }
 
     // 404 Not found
-    @ExceptionHandler(value = { EntityNotFoundException.class, UserNotFoundException.class })
-    protected ResponseEntity<Object> handleNotFound(final UserNotFoundException ex, final WebRequest request) {
-        final String bodyOfResponse = "The user was not found.";
-        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
-    }
-
-    @ExceptionHandler(value = { EntityNotFoundException.class, GameNotFoundException.class })
-    protected ResponseEntity<Object> handleNotFound(final GameNotFoundException ex, final WebRequest request) {
-        final String bodyOfResponse = "The game was not found.";
+    @ExceptionHandler(value = { EntityNotFoundException.class, RessourceNotFoundException.class })
+    protected ResponseEntity<Object> handleNotFound(final RuntimeException ex, final WebRequest request) {
+        final String bodyOfResponse = "The resource was not found.";
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 

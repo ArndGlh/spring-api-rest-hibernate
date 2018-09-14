@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import arnaudg.persistence.models.User;
+import arnaudg.web.util.RestPreconditions;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -29,8 +30,9 @@ public class UserService {
     /**
      * Save the user in the database.
      */
-    public void create(User user) {
+    public long create(User user) {
         entityManager.persist(user);
+        return RestPreconditions.checkFound(getByEmail(user.getEmail()).getId());
     }
 
     /**
@@ -48,7 +50,7 @@ public class UserService {
      * Return all the users stored in the database.
      */
     @SuppressWarnings("unchecked")
-    public List<User> getAll() {
+    public List<User> findAll() {
         return entityManager.createQuery("from User").getResultList();
     }
 
