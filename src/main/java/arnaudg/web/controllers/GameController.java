@@ -1,7 +1,7 @@
-package arnaudg.controllers;
+package arnaudg.web.controllers;
 
-import arnaudg.models.Game;
-import arnaudg.service.GameService;
+import arnaudg.persistence.models.Game;
+import arnaudg.persistence.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +19,7 @@ public class GameController {
     /**
      * Get all the games.
      */
-    @RequestMapping(method=GET, value = "")
+    @RequestMapping(method=GET, value = "/findAll")
     @ResponseBody
     public List<Game> findAll() {
         try {

@@ -1,13 +1,12 @@
-package arnaudg.controllers;
+package arnaudg.web.controllers;
 
-import arnaudg.models.User;
-import arnaudg.service.UserService;
+import arnaudg.persistence.models.User;
+import arnaudg.persistence.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
@@ -22,6 +21,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 public class UserController {
 
     // TODO return JSON values
+    // TODO erreur de fetch
 
     @Autowired
     private UserService userDao;
@@ -59,10 +59,10 @@ public class UserController {
      * values.
      */
     @RequestMapping(method=POST, value = "/create")
+    @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public String create(String email, String name) {
+    public String create(@RequestBody User user) {
         try {
-            User user = new User(email, name);
             userDao.create(user);
         } catch (Exception ex) {
             return "Error creating the user: " + ex.toString();
@@ -73,9 +73,10 @@ public class UserController {
     /**
      * Delete the user with the passed id.
      */
-    @RequestMapping(method=DELETE, value = "/delete")
+    @RequestMapping(method=DELETE, value = "/delete/{id}")
+    @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public String delete(long id) {
+    public String delete(@PathVariable("id") long id) {
         try {
             User user = new User(id);
             userDao.delete(user);
@@ -85,28 +86,29 @@ public class UserController {
         return "User succesfully deleted!";
     }
 
-    /**
-     * Retrieve the id for the user with the passed email address.
-     */
-    @RequestMapping(method=GET, value = "/get-by-email")
-    @ResponseBody
-    public String getByEmail(String email) {
-        String userId;
-        try {
-            User user = userDao.getByEmail(email);
-            userId = String.valueOf(user.getId());
-        } catch (Exception ex) {
-            return "User not found: " + ex.toString();
-        }
-        return "The user id is: " + userId;
-    }
+//    /**
+//     * Retrieve the id for the user with the passed email address.
+//     */
+//    @RequestMapping(method=GET, value = "/get-by-email")
+//    @ResponseBody
+//    public String getByEmail(String email) {
+//        String userId;
+//        try {
+//            User user = userDao.getByEmail(email);
+//            userId = String.valueOf(user.getId());
+//        } catch (Exception ex) {
+//            return "User not found: " + ex.toString();
+//        }
+//        return "The user id is: " + userId;
+//    }
 
     /**
      * Update the email and the name for the user indentified by the passed id.
      */
     @RequestMapping(method=PUT, value = "/update")
+    @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public String updateName(long id, String email, String name) {
+    public String updateName(long id, String email, String name, String password) {
         try {
             User user = userDao.getById(id);
             user.setEmail(email);

@@ -1,6 +1,6 @@
-package arnaudg.service;
+package arnaudg.persistence.service;
 
-import arnaudg.models.Game;
+import arnaudg.persistence.models.Game;
 
 import java.util.List;
 

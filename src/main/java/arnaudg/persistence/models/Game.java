@@ -1,4 +1,4 @@
-package arnaudg.models;
+package arnaudg.persistence.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

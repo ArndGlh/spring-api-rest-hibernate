@@ -1,4 +1,4 @@
-package arnaudg.service;
+package arnaudg.persistence.service;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import arnaudg.models.User;
+import arnaudg.persistence.models.User;
 import org.springframework.stereotype.Repository;
 
 /**
