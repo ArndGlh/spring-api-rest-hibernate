@@ -2,6 +2,7 @@ package arnaudg.web.controllers;
 
 import arnaudg.persistence.models.Game;
 import arnaudg.persistence.service.GameService;
+import arnaudg.web.util.RestPreconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +11,7 @@ import java.util.List;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
-@RequestMapping(value = "/games")
+@RequestMapping(value = "/game")
 public class GameController {
 
     @Autowired
@@ -19,28 +20,18 @@ public class GameController {
     /**
      * Get all the games.
      */
-    @RequestMapping(method=GET, value = "/findAll")
+    @RequestMapping(method = GET)
     @ResponseBody
     public List<Game> findAll() {
-        try {
-            return gameService.getAll();
-        } catch (Exception ex) {
-            System.err.println("Games not found: " + ex.toString()); // TODO Logger
-        }
-        return null;
+        return gameService.findAll();
     }
 
     /**
      * Get one game by id.
      */
-    @RequestMapping(method=GET, value = "/{id}")
+    @RequestMapping(method = GET, value = "/{id}")
     @ResponseBody
     public Game findById(@PathVariable("id") int id) {
-        try {
-            return gameService.getById(id);
-        } catch (Exception ex) {
-            System.err.println("Game not found: " + ex.toString()); // TODO Logger
-        }
-        return null;
+        return RestPreconditions.checkFound(gameService.getById(id));
     }
 }

@@ -36,7 +36,7 @@ public class GameService {
     }
 
     @SuppressWarnings("unchecked")
-    public List<Game> getAll(){
+    public List<Game> findAll(){
         return entityManager.createQuery("from Game").getResultList();
     }
 
