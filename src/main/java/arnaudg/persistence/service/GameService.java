@@ -49,4 +49,10 @@ public class GameService {
                 .setParameter("name", "%"+name+"%")
                 .getResultList();
     }
+
+    public List getByGenre(String genre) {
+        return entityManager.createQuery("from Game where genre like :genre")
+                .setParameter("genre", "%"+genre+"%")
+                .getResultList();
+    }
 }

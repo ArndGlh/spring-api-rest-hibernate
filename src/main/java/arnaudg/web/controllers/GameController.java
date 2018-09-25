@@ -35,13 +35,21 @@ public class GameController {
         return RestPreconditions.checkFound(gameService.getById(id));
     }
 
-
     /**
-     * Get one game by name.
+     * Get games by name.
      */
     @RequestMapping(method = GET, value = "/name/{name}")
     @ResponseBody
     public List findByName(@PathVariable("name") String name) {
         return RestPreconditions.checkFound(gameService.getByName(name));
+    }
+
+    /**
+     * Get games by genre.
+     */
+    @RequestMapping(method = GET, value = "/genre/{genre}")
+    @ResponseBody
+    public List findByGenre(@PathVariable("genre") String genre) {
+        return RestPreconditions.checkFound(gameService.getByGenre(genre));
     }
 }
