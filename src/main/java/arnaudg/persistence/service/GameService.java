@@ -43,4 +43,10 @@ public class GameService {
     public Game getById(int id){
         return entityManager.find(Game.class, id);
     }
+
+    public List getByName(String name) {
+        return entityManager.createQuery("from Game where title like :name")
+                .setParameter("name", "%"+name+"%")
+                .getResultList();
+    }
 }
