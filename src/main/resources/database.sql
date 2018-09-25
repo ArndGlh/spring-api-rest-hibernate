@@ -56,7 +56,7 @@ DROP TABLE IF EXISTS `progress`;
 CREATE TABLE IF NOT EXISTS `progress` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_game` int(11) UNSIGNED NOT NULL,
-  `id_task` int(11) UNSIGNED NOT NULL,
+  `id_task` int(11) UNSIGNED DEFAULT NULL,
   `completion` int(2) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_game` (`id_game`),

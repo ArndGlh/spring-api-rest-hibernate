@@ -1,11 +1,9 @@
 package arnaudg.persistence.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.hibernate.annotations.Columns;
+
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Entity bean with JPA annotations
@@ -20,8 +18,16 @@ public class Game {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 
+    @OneToMany(targetEntity = User.class, cascade = CascadeType.ALL)
+    private List userList;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "genre")
     private String genre;
+
+    @Column(name = "year")
     private String year;
 
     public int getId() {

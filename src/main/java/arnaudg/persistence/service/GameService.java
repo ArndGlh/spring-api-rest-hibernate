@@ -55,4 +55,8 @@ public class GameService {
                 .setParameter("genre", "%"+genre+"%")
                 .getResultList();
     }
+
+    public void save(Game game) {
+        entityManager.merge(game);
+    }
 }

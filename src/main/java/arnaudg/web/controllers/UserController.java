@@ -25,7 +25,7 @@ public class UserController {
     // TODO erreur de fetch
 
     @Autowired
-    private UserService userDao;
+    private UserService userService;
 
     /**
      * Get all the users.
@@ -33,7 +33,7 @@ public class UserController {
     @RequestMapping(method = GET)
     @ResponseBody
     public List<User> findAll() {
-        return userDao.findAll();
+        return userService.findAll();
     }
 
     /**
@@ -42,7 +42,7 @@ public class UserController {
     @RequestMapping(method = GET, value = "/{id}")
     @ResponseBody
     public User findAll(@PathVariable("id") int id) {
-        return RestPreconditions.checkFound(userDao.getById(id));
+        return RestPreconditions.checkFound(userService.getById(id));
     }
 
     /**
@@ -54,7 +54,7 @@ public class UserController {
     @ResponseBody
     public long create(@RequestBody User user) {
         RestPreconditions.checkFound(user);
-        return userDao.create(user);
+        return userService.create(user);
     }
 
     /**
@@ -65,7 +65,7 @@ public class UserController {
     @ResponseBody
     public void delete(@PathVariable("id") long id) {
         User user = new User(id);
-        userDao.delete(user);
+        userService.delete(user);
     }
 
 //    /**
@@ -76,7 +76,7 @@ public class UserController {
 //    public String getByEmail(String email) {
 //        String userId;
 //        try {
-//            User user = userDao.getByEmail(email);
+//            User user = userService.getByEmail(email);
 //            userId = String.valueOf(user.getId());
 //        } catch (Exception ex) {
 //            return "User not found: " + ex.toString();
@@ -92,7 +92,7 @@ public class UserController {
     @ResponseBody
     public void updateName(@RequestBody User user) {
         RestPreconditions.checkFound(user);
-        RestPreconditions.checkFound(userDao.getById(user.getId()));
-        userDao.update(user);
+        RestPreconditions.checkFound(userService.getById(user.getId()));
+        userService.update(user);
     }
 }
