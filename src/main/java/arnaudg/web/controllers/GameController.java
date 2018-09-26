@@ -1,19 +1,13 @@
 package arnaudg.web.controllers;
 
 import arnaudg.persistence.models.Game;
-import arnaudg.persistence.repository.GameRepository;
 import arnaudg.persistence.service.GameService;
-import arnaudg.web.exception.GameNotFoundException;
 import arnaudg.web.util.RestPreconditions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
@@ -87,8 +81,7 @@ public class GameController {
      * Delete one game
      */
     @RequestMapping(method = DELETE, value = "/{gameId}")
-    public ResponseEntity<?> deleteGame(@PathVariable int gameId) {
-        RestPreconditions.checkFound(gameRequest);
+    public void deleteGame(@PathVariable int gameId) {
         Game game = gameService.getById(RestPreconditions.checkFound(gameId));
         gameService.delete(game);
     }

@@ -18,9 +18,6 @@ public class Game {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany(targetEntity = User.class, cascade = CascadeType.ALL)
-    private List userList;
-
     @Column(name = "title")
     private String title;
 
