@@ -14,6 +14,8 @@ import javax.persistence.*;
 @Table(name="task")
 public class Task {
 
+    // TODO : Optimiser la table Task => "actual progress" n'as rien a y faire, doublon"
+
     @Id
     @Column(name="id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)

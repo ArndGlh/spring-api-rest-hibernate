@@ -58,8 +58,7 @@ public class UserService {
      * Return the user having the passed email.
      */
     public User getByEmail(String email) {
-        return (User) entityManager.createQuery(
-                "from User where email = :email")
+        return (User) entityManager.createQuery("from User where email = :email")
                 .setParameter("email", email)
                 .getSingleResult();
     }

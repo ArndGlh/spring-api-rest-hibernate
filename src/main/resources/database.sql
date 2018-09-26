@@ -98,8 +98,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `name`, `password`) VALUES
-(1, 'maill@mail.fr', 'test', '');
+INSERT INTO `users` (`id`, `email`, `name`, `password`) VALUES (NULL, 'mail@mail.fr', 'test', 'test');
+INSERT INTO `users` (`id`, `email`, `name`, `password`) VALUES (NULL, 'martin@mail.fr', 'martin', 'martin');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

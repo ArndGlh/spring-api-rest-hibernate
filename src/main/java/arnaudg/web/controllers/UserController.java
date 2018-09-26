@@ -21,9 +21,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @RequestMapping(value = "/user")
 public class UserController {
 
-    // TODO return JSON values
-    // TODO erreur de fetch
-
     @Autowired
     private UserService userService;
 
@@ -49,7 +46,7 @@ public class UserController {
      * Create a new user with an auto-generated id and email and name as passed
      * values.
      */
-    @RequestMapping(method = POST, value = "/create")
+    @RequestMapping(method = POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public long create(@RequestBody User user) {
@@ -60,7 +57,7 @@ public class UserController {
     /**
      * Delete the user with the passed id.
      */
-    @RequestMapping(method = DELETE, value = "/delete/{id}")
+    @RequestMapping(method = DELETE, value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public void delete(@PathVariable("id") long id) {
@@ -68,26 +65,26 @@ public class UserController {
         userService.delete(user);
     }
 
-//    /**
-//     * Retrieve the id for the user with the passed email address.
-//     */
-//    @RequestMapping(method=GET, value = "/get-by-email")
-//    @ResponseBody
-//    public String getByEmail(String email) {
-//        String userId;
-//        try {
-//            User user = userService.getByEmail(email);
-//            userId = String.valueOf(user.getId());
-//        } catch (Exception ex) {
-//            return "User not found: " + ex.toString();
-//        }
-//        return "The user id is: " + userId;
-//    }
+    /**
+     * Retrieve the id for the user with the passed email address.
+     */
+    @RequestMapping(method=GET, value = "/email/{email}")
+    @ResponseBody
+    public String getByEmail(@PathVariable(value = "email") String email) {
+        String userId;
+        try {
+            User user = userService.getByEmail(email);
+            userId = String.valueOf(user.getId());
+        } catch (Exception ex) {
+            return "User not found: " + ex.toString();
+        }
+        return userId;
+    }
 
     /**
      * Update the email and the name for the user indentified by the passed id.
      */
-    @RequestMapping(method = PUT, value = "/update")
+    @RequestMapping(method = PUT)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public void updateName(@RequestBody User user) {

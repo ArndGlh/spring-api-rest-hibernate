@@ -66,10 +66,10 @@ public class GameController {
     /**
      * Update one game
      */
-    @RequestMapping(method = PUT, value = "/{gameId}")
-    public void updateGame(@PathVariable int gameId, @Valid @RequestBody Game gameRequest) {
+    @RequestMapping(method = PUT)
+    public void updateGame(@Valid @RequestBody Game gameRequest) {
         RestPreconditions.checkFound(gameRequest);
-        Game game = gameService.getById(RestPreconditions.checkFound(gameId));
+        Game game = gameService.getById(RestPreconditions.checkFound(gameRequest.getId()));
         game.setTitle(gameRequest.getTitle());
         game.setGenre(gameRequest.getGenre());
         game.setYear(gameRequest.getYear());

@@ -37,6 +37,14 @@ public class Progress {
 
     private double completion;
 
+    public Progress(){}
+
+    public Progress(Game game, User user, double completion) {
+        this.game = game;
+        this.user = user;
+        this.completion = completion;
+    }
+
     public int getId() {
         return id;
     }
@@ -59,6 +67,22 @@ public class Progress {
 
     public void setCompletion(double completion) {
         this.completion = completion;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
