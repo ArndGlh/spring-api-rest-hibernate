@@ -1,0 +1,10 @@
+<li [ngClass]="{'list-group-item': true,
+'list-group-item-success': gameStatus === 'allumé',
+'list-group-item-danger': gameStatus === 'éteint'}">
+
+    <h4 [ngStyle]="{color: getColor()}">Game : {{ GameName }} -- Statut : {{ getStatus() }}</h4>
+    <a [routerLink]="[id]">Détail</a>
+
+    <!-- <button class="btn btn-sm btn-success" *ngIf="gameStatus === 'éteint'" (click)="onSwitch()">Allumer</button>
+    <button class="btn btn-sm btn-danger" *ngIf="gameStatus === 'allumé'" (click)="onSwitch()">Eteindre</button> -->
+</li>
