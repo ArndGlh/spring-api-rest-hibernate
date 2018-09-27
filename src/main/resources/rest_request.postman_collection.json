@@ -1,0 +1,297 @@
+{
+	"info": {
+		"_postman_id": "99610988-7df5-4228-968b-06d663b1cf60",
+		"name": "rest request",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "localhost:8080/user/create  ",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "localhost:8080/user/delete/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"delete",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Game",
+			"item": [
+				{
+					"name": "create game",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"The Witcher 3\",\r\n  \"genre\": \"Action-RPG\",\r\n  \"year\": \"2015\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/game",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"game"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update game",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"The Witcher 3\",\r\n  \"genre\": \"Action-RPG\",\r\n  \"year\": \"2015\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/game/5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"game",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete game",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/game/6",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"game",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Progress",
+			"item": [
+				{
+					"name": "create progress",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"gameId\": 2,\r\n\t\"userId\": 1,\r\n\t\"completion\": 25\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/progress",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"progress"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update progress",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\":4,\r\n\t\"gameId\": 2,\r\n\t\"userId\": 1,\r\n\t\"completion\": 30\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/progress",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"progress"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete progress",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/progress/4",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"progress",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Task",
+			"item": [
+				{
+					"name": "create task",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"Element de personnalisation\",\n\t\"description\":\"Obtenir tout les éléments de personnalisation\",\n\t\"actualProgress\":40,\n\t\"maxProgress\":100,\n\t\"progressId\":2\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/task",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"task"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update task",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":7,\n\t\"name\":\"Eléments de personnalisation\",\n\t\"description\":\"Obtenir tout les éléments de personnalisation\",\n\t\"actualProgress\":40,\n\t\"maxProgress\":100\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/task",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"task"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete task",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/task/8",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"task",
+								"8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
