@@ -1,5 +1,6 @@
 package arnaudg.web.controllers;
 
+import arnaudg.persistence.dto.TaskDto;
 import arnaudg.persistence.models.Task;
 import arnaudg.persistence.service.TaskService;
 import arnaudg.web.util.RestPreconditions;
@@ -38,12 +39,12 @@ public class TaskController {
     }
 
     /**
-     * Get task by progress.
+     * Get task by game.
      */
-    @RequestMapping(method = GET, value = "/progress/{userId}/{progressId}")
+    @RequestMapping(method = GET, value = "/game/{userId}/{gameId}")
     @ResponseBody
-    public List findByProgress(@PathVariable("userId") int userId, @PathVariable("progressId") int progressId) {
-        return RestPreconditions.checkFound(taskService.getByProgress(progressId, userId));
+    public List findByProgress(@PathVariable("userId") int userId, @PathVariable("gameId") int gameId) {
+        return RestPreconditions.checkFound(taskService.getByProgress(gameId, userId));
     }
 
     /**
@@ -52,25 +53,18 @@ public class TaskController {
     @RequestMapping(method = POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public void createTask(@RequestBody Task task) {
-        RestPreconditions.checkFound(task);
-        taskService.create(task);
+    public void createTask(@RequestBody TaskDto taskDto) {
+        RestPreconditions.checkFound(taskDto);
+        taskService.create(taskDto);
     }
 
     /**
      * Update one task
      */
     @RequestMapping(method = PUT)
-    public void updateTask(@Valid @RequestBody Task taskRequest) {
-        RestPreconditions.checkFound(taskRequest);
-        Task task = taskService.getById(taskRequest.getId());
-        task.setId(taskRequest.getId());
-        task.setName(taskRequest.getName());
-        task.setDescription(taskRequest.getDescription());
-        task.setMax_progress(taskRequest.getMax_progress());
-        task.setActual_progress(taskRequest.getActual_progress());
-
-        taskService.save(task);
+    public void updateTask(@Valid @RequestBody TaskDto taskRequestDto) {
+        RestPreconditions.checkFound(taskRequestDto);
+        taskService.save(taskRequestDto);
     }
 
     /**

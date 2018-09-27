@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Table(name="task")
 public class Task {
 
-    // TODO : Optimiser la table Task => "actual progress" n'as rien a y faire, doublon"
+    // TODO : Optimiser la table Task => "actual progress" n'as rien a y faire, doublons"
 
     @Id
     @Column(name="id")
@@ -31,6 +31,16 @@ public class Task {
     private String description;
     private int actual_progress;
     private int max_progress;
+
+    public Task(){}
+
+    public Task(Progress progress, String name, String description, int actual_progress, int max_progress) {
+        this.progress = progress;
+        this.name = name;
+        this.description = description;
+        this.actual_progress = actual_progress;
+        this.max_progress = max_progress;
+    }
 
     public int getId() {
         return id;

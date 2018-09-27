@@ -1,6 +1,9 @@
 package arnaudg.persistence.service;
 
+import arnaudg.persistence.dto.TaskDto;
+import arnaudg.persistence.models.Progress;
 import arnaudg.persistence.models.Task;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -15,10 +18,19 @@ public class TaskService {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Autowired
+    private ProgressService progressService;
+
     /**
      * Save the task in the database.
      */
-    public void create(Task task) {
+    public void create(TaskDto taskDto) {
+        Progress progress = progressService.getById(taskDto.getProgressId());
+        Task task = new Task(progress,
+                taskDto.getName(),
+                taskDto.getDescription(),
+                taskDto.getActualProgress(),
+                taskDto.getMaxProgress());
         entityManager.persist(task);
     }
 
@@ -36,7 +48,15 @@ public class TaskService {
     /**
      * Update the task in the database.
      */
-    public void save(Task task) {
+    public void save(TaskDto taskDto) {
+        Task task = entityManager.find(Task.class, taskDto.getId());
+        
+        task.setId(taskDto.getId());
+        task.setName(taskDto.getName());
+        task.setDescription(taskDto.getDescription());
+        task.setMax_progress(taskDto.getMaxProgress());
+        task.setActual_progress(taskDto.getActualProgress());
+
         entityManager.merge(task);
     }
 
@@ -63,40 +83,11 @@ public class TaskService {
      * Get all task by progress and user
      *
      */
-    public List getByProgress(int progressId, int userId) {
-        return entityManager.createQuery("from Task t, Progress p where p.id = t.progress_id and p.id = :progressId and p.user_id = :userId")
-                .setParameter(":progressId", progressId)
+    public List getByProgress(int gameId, int userId) {
+        return entityManager.createQuery("from Task where progress_id in (select id from Progress where user_id = :userId and game_id = :gameId)")
+                .setParameter("gameId", gameId)
                 .setParameter("userId", userId)
                 .getResultList();
+
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
