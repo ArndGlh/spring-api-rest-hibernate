@@ -20,12 +20,15 @@
 						],
 						"body": {},
 						"url": {
-							"raw": "localhost:8080/user/delete/2",
+							"raw": "localhost:8080/api/rest/v1/user/delete/2",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"api",
+								"rest",
+								"v1",
 								"user",
 								"delete",
 								"2"
@@ -54,12 +57,15 @@
 							"raw": "{\r\n  \"title\": \"The Witcher 3\",\r\n  \"genre\": \"Action-RPG\",\r\n  \"year\": \"2015\"\r\n}"
 						},
 						"url": {
-							"raw": "localhost:8080/game",
+							"raw": "localhost:8080/api/rest/v1/game",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"api",
+								"rest",
+								"v1",
 								"game"
 							]
 						}
@@ -81,12 +87,15 @@
 							"raw": "{\r\n  \"title\": \"The Witcher 3\",\r\n  \"genre\": \"Action-RPG\",\r\n  \"year\": \"2015\"\r\n}"
 						},
 						"url": {
-							"raw": "localhost:8080/game/5",
+							"raw": "localhost:8080/api/rest/v1/game/5",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"api",
+								"rest",
+								"v1",
 								"game",
 								"5"
 							]
@@ -109,12 +118,15 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:8080/game/6",
+							"raw": "localhost:8080/api/rest/v1/game/6",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"api",
+								"rest",
+								"v1",
 								"game",
 								"6"
 							]
@@ -142,12 +154,15 @@
 							"raw": "{\r\n\t\"gameId\": 2,\r\n\t\"userId\": 1,\r\n\t\"completion\": 25\r\n}"
 						},
 						"url": {
-							"raw": "localhost:8080/progress",
+							"raw": "localhost:8080/api/rest/v1/progress",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"api",
+								"rest",
+								"v1",
 								"progress"
 							]
 						}
@@ -169,12 +184,15 @@
 							"raw": "{\r\n\t\"id\":4,\r\n\t\"gameId\": 2,\r\n\t\"userId\": 1,\r\n\t\"completion\": 30\r\n}"
 						},
 						"url": {
-							"raw": "localhost:8080/progress",
+							"raw": "localhost:8080/api/rest/v1/progress",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"api",
+								"rest",
+								"v1",
 								"progress"
 							]
 						}
@@ -196,12 +214,15 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:8080/progress/4",
+							"raw": "localhost:8080/api/rest/v1/progress/4",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"api",
+								"rest",
+								"v1",
 								"progress",
 								"4"
 							]
@@ -226,15 +247,18 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\":\"Element de personnalisation\",\n\t\"description\":\"Obtenir tout les éléments de personnalisation\",\n\t\"actualProgress\":40,\n\t\"maxProgress\":100,\n\t\"progressId\":2\n}"
+							"raw": "{\n\t\"name\":\"edrtyeryrtgon\",\n\t\"description\":\"Obtertger gergeregrgation\",\n\t\"actualProgress\":40,\n\t\"maxProgress\":100,\n\t\"progressId\":2\n}"
 						},
 						"url": {
-							"raw": "localhost:8080/task",
+							"raw": "localhost:8080/api/rest/v1/task",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"api",
+								"rest",
+								"v1",
 								"task"
 							]
 						}
@@ -256,12 +280,15 @@
 							"raw": "{\n\t\"id\":7,\n\t\"name\":\"Eléments de personnalisation\",\n\t\"description\":\"Obtenir tout les éléments de personnalisation\",\n\t\"actualProgress\":40,\n\t\"maxProgress\":100\n}"
 						},
 						"url": {
-							"raw": "localhost:8080/task",
+							"raw": "localhost:8080/api/rest/v1/task",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"api",
+								"rest",
+								"v1",
 								"task"
 							]
 						}
@@ -278,12 +305,15 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:8080/task/8",
+							"raw": "localhost:8080/api/rest/v1/task/8",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"api",
+								"rest",
+								"v1",
 								"task",
 								"8"
 							]
