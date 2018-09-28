@@ -1,14 +1,36 @@
 <h2>My Games </h2>
       <p>Last updated : {{ lastUpdate | async | date:short }}</p>
-      <ul class="list-group">
-        <app-game  *ngFor="let game of games; let i = index"
-                       [gameName]="game.name"
-                       [gameStatus]="game.status"
-                       [index]="i" 
-                       [id]="game.id"></app-game>
-      </ul>
+      <table class="table table-dark">
+        <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Title</th>
+              <th scope="col">Genre</th>
+              <th scope="col">Year</th>
+              <th scope="col">Progress</th>
+            </tr>
+        </thead>
+        <tbody>
+          <app-game *ngFor="let game of games; let i = index"
+          [gameTitle]="game.title"
+          [gameGenre]="game.genre"
+          [gameYear]="game.year" 
+          [id]="game.id"></app-game>
+        </tbody>
+      </table>
       <button class="btn btn-primary" (click)="onSave()">Save games</button>
       <!-- <button class="btn btn-success"
       (click)="onAllumer()">Tout allumer</button>
       <button class="btn btnS-danger"
       (click)="onEteindre()">Tout éteindre</button> -->
+
+
+<!-- 
+      <ul class="list-group">
+        <app-game  *ngFor="let game of games; let i = index"
+                       [gameTitle]="game.title"
+                       [gameGenre]="game.genre"
+                       [gameYear]="game.year" 
+                       [id]="game.id"></app-game>
+      </ul>
+      <button class="btn btn-primary" (click)="onSave()">Save games</button> -->

@@ -21,7 +21,7 @@ export class EditGameComponent implements OnInit {
   onSubmit(form: NgForm) {
     const name = form.value['name'];
     const status = form.value['status'];
-    this.gameService.addGame(name, status);
+    //this.gameService.addGame(name, status);
     this.router.navigate(['/games']);
   }
 }

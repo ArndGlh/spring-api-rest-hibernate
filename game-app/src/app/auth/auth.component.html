@@ -1,4 +1,21 @@
 <h2>Authentification</h2>
+
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <div class="form-group">
+      <label for="mail">
+        E-mail address
+      </label>
+      <input type="email" id="mail" class="form-control" name="mail" ngModel required>
+    </div>
+    <div class="form-group">
+      <label for="password">
+        Password
+      </label>
+      <input id="password" class="form-control" name="password" [ngModel]="defaultOnOff" required>
+    </div>
+    <button class="btn btn-primary" type="submit" [disabled]="f.invalid">Log in</button>
+  </form>
+<!-- 
 <button class="btn btn-success" *ngIf="!authStatus" (click)="onSignIn()">Log in</button>
-<button class="btn btn-danger" *ngIf="authStatus" (click)="onSignOut()">Log out</button>
+<button class="btn btn-danger" *ngIf="authStatus" (click)="onSignOut()">Log out</button> -->
 

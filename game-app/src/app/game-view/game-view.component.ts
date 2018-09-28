@@ -29,11 +29,12 @@ export class GameViewComponent implements OnInit, OnDestroy {
         this.games = games;
       }
     );
+    this.gameService.getGamesFromServer();
     this.gameService.emitGameSubject();
   }
 
   onSave() {
-    this.gameService.saveAppareilsToServer();
+    this.gameService.saveGameToServer();
   }
   
   ngOnDestroy() {

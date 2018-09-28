@@ -8,18 +8,12 @@ export class GameService {
     
     gamesSubject = new Subject<any[]>();
     
-    private games = [
-        {
-            title: "Super Smash Bros Melee",
-            genre: "Jeu de combat",
-            year: "2001"
-        }
-    ];
+    private games: any[];
 
     constructor(private httpClient: HttpClient){}
     
     emitGameSubject() {
-        this.gamesSubject.next(this.games.slice());
+        this.gamesSubject.next(this.games);
     }
     
     // getGameById(id: number) {
@@ -31,39 +25,48 @@ export class GameService {
     //     return game;
     // }
     
-    // addGame(name: string, status: string) {
+    // addGame(title: string, genre: string, year: number) {
     //     const gameObject = {
-    //         id: 0,
-    //         name: '',
-    //         status: ''
+    //         title: '',
+    //         genre: '',
+    //         year: 0
     //     };
-    //     gameObject.name = name;
-    //     gameObject.status = status;
-    //     gameObject.id = this.games[(this.games.length - 1)].id + 1;
+    //     gameObject.title = title;
+    //     gameObject.genre = genre;
+    //     gameObject.year = year;
     //     this.games.push(gameObject);
     //     this.emitGameSubject();
     // }
 
-    saveAppareilsToServer() {
+    saveGameToServer() {
         const httpOptions = {
             headers: new HttpHeaders({
               'Content-Type':'application/json'
             })
         };
 
-        var gamesTest =
-            {
-                "title": "Super Smash Bros Melee",
-                "genre": "Jeu de combat",
-                "year": "2001"
-            };
-
         this.httpClient
-          .post('http://localhost:8080/api/rest/v1/game', gamesTest, httpOptions)
+          .post('http://localhost:8080/api/rest/v1/game', this.games, httpOptions)
           
           .subscribe(
             () => {
               console.log('Enregistrement terminé !');
+            },
+            (error) => {
+              console.log('Erreur ! : ' + error);
+            }
+          );
+    }
+
+    getGamesFromServer() {
+        this.httpClient
+          .get<any[]>('http://localhost:8080/api/rest/v1/game')
+          .subscribe(
+            (response) => {
+              console.log(response);
+              this.games = response;
+              console.log(this.games);
+              this.emitGameSubject();
             },
             (error) => {
               console.log('Erreur ! : ' + error);
