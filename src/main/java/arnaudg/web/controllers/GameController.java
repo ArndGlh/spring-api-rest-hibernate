@@ -28,6 +28,15 @@ public class GameController {
     }
 
     /**
+     * Get all the games and progress associated
+     */
+    @RequestMapping(method = GET, value = "/progress")
+    @ResponseBody
+    public List findAllAndProgress() {
+        return gameService.findAllAndProgress();
+    }
+
+    /**
      * Get one game by id.
      */
     @RequestMapping(method = GET, value = "/id/{id}")

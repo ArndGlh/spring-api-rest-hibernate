@@ -16,14 +16,14 @@ export class GameService {
         this.gamesSubject.next(this.games);
     }
     
-    // getGameById(id: number) {
-    //     const game = this.games.find(
-    //         (s) => {
-    //             return s.id === id;
-    //         }
-    //     );
-    //     return game;
-    // }
+    getGameById(id: number) {
+        const game = this.games.find(
+            (s) => {
+                return s.id === id;
+            }
+        );
+        return game;
+    }
     
     // addGame(title: string, genre: string, year: number) {
     //     const gameObject = {
@@ -60,7 +60,7 @@ export class GameService {
 
     getGamesFromServer() {
         this.httpClient
-          .get<any[]>('http://localhost:8080/api/rest/v1/game')
+          .get<any[]>('http://localhost:8080/api/rest/v1/game/progress')
           .subscribe(
             (response) => {
               console.log(response);

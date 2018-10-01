@@ -40,6 +40,11 @@ public class GameService {
         return entityManager.createQuery("from Game").getResultList();
     }
 
+    public List findAllAndProgress() {
+        return entityManager.createQuery("from Game, Progress where Game.id = Progress.game_id") // TODO
+                .getResultList();
+    }
+
     public Game getById(int id){
         return entityManager.find(Game.class, id);
     }
@@ -59,4 +64,5 @@ public class GameService {
     public void save(Game game) {
         entityManager.merge(game);
     }
+
 }

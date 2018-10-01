@@ -11,11 +11,15 @@
             </tr>
         </thead>
         <tbody>
-          <app-game *ngFor="let game of games; let i = index"
-          [gameTitle]="game.title"
-          [gameGenre]="game.genre"
-          [gameYear]="game.year" 
-          [id]="game.id"></app-game>
+            <ng-container *ngFor="let game of games; let i = index">
+              <tr>
+                <th scope="row">{{ game.id }}</th>
+                <td>{{ game.title }}</td>
+                <td>{{ game.genre }}</td>
+                <td>{{ game.year }}</td>
+                <td><a [routerLink]="[id]">{{ game.completion }}</a></td>
+              </tr>
+            </ng-container>
         </tbody>
       </table>
       <button class="btn btn-primary" (click)="onSave()">Save games</button>
