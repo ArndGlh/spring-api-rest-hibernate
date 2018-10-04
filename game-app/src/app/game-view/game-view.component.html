@@ -6,18 +6,18 @@
               <th scope="col">#</th>
               <th scope="col">Title</th>
               <th scope="col">Genre</th>
-              <th scope="col">Year</th>
+              <th scope="col">First release</th>
               <th scope="col">Progress</th>
             </tr>
         </thead>
         <tbody>
             <ng-container *ngFor="let game of games; let i = index">
               <tr>
-                <th scope="row">{{ game.id }}</th>
-                <td>{{ game.title }}</td>
-                <td>{{ game.genre }}</td>
-                <td>{{ game.year }}</td>
-                <td><a [routerLink]="[id]">{{ game.completion }}</a></td>
+                <th scope="row">{{ i+1 }}</th>
+                <td>{{ game[0].title }}</td>
+                <td>{{ game[0].genre }}</td>
+                <td>{{ game[0].year }}</td>
+                <td><a [routerLink]="game[0].id">{{ game[1].completion }}% done</a></td>
               </tr>
             </ng-container>
         </tbody>

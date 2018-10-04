@@ -16,7 +16,10 @@ export class SingleGameComponent implements OnInit {
   
   ngOnInit() {
     const id = this.route.snapshot.params['id'];
-    this.title = this.gameService.getGameById(+id).title;
-    this.genre = this.gameService.getGameById(+id).genre;
+    var game = this.gameService.getGameById(+id);
+    console.log('GAME : '+game);
+    this.title = game['title'];
+    this.genre = game['genre'];
+
   }
 }

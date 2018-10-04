@@ -29,7 +29,7 @@ export class GameViewComponent implements OnInit, OnDestroy {
         this.games = games;
       }
     );
-    this.gameService.getGamesFromServer();
+    this.gameService.getGamesFromServer2();
     this.gameService.emitGameSubject();
   }
 

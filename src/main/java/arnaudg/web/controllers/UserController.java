@@ -8,10 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-
-import java.util.List;
-
+import javax.ws.rs.core.Response;
+import static com.google.common.net.HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
@@ -19,6 +17,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
  */
 @Controller
 @RequestMapping(value = "/user")
+//@CrossOrigin(origins = "*")
 public class UserController {
 
     @Autowired
@@ -29,8 +28,11 @@ public class UserController {
      */
     @RequestMapping(method = GET)
     @ResponseBody
-    public List<User> findAll() {
-        return userService.findAll();
+    public Response findAll() {
+        return Response.status(Response.Status.OK)
+                .entity(userService.findAll())
+                .header(ACCESS_CONTROL_ALLOW_ORIGIN, "*")
+                .build();
     }
 
     /**
@@ -38,8 +40,11 @@ public class UserController {
      */
     @RequestMapping(method = GET, value = "/{id}")
     @ResponseBody
-    public User findAll(@PathVariable("id") int id) {
-        return RestPreconditions.checkFound(userService.getById(id));
+    public Response findAll(@PathVariable("id") int id) {
+        return Response.status(Response.Status.OK)
+                .entity(RestPreconditions.checkFound(userService.getById(id)))
+                .header(ACCESS_CONTROL_ALLOW_ORIGIN, "*")
+                .build();
     }
 
     /**
@@ -49,9 +54,9 @@ public class UserController {
     @RequestMapping(method = POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public long create(@RequestBody User user) {
+    public Response create(@RequestBody User user) {
         RestPreconditions.checkFound(user);
-        return userService.create(user);
+        return Response.status(Response.Status.CREATED).entity(userService.create(user)).build();
     }
 
     /**
@@ -60,9 +65,11 @@ public class UserController {
     @RequestMapping(method = DELETE, value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public void delete(@PathVariable("id") long id) {
+    public Response delete(@PathVariable("id") long id) {
         User user = new User(id);
         userService.delete(user);
+
+        return Response.status(Response.Status.OK).build();
     }
 
     /**
@@ -70,15 +77,15 @@ public class UserController {
      */
     @RequestMapping(method=GET, value = "/email/{email}")
     @ResponseBody
-    public String getByEmail(@PathVariable(value = "email") String email) {
-        String userId;
+    public Response getByEmail(@PathVariable(value = "email") String email) {
+        String userId = null;
         try {
             User user = userService.getByEmail(email);
             userId = String.valueOf(user.getId());
         } catch (Exception ex) {
-            return "User not found: " + ex.toString();
+            System.out.println("User not found: " + ex.toString());
         }
-        return userId;
+        return Response.status(Response.Status.OK).entity(userId).build();
     }
 
     /**
@@ -87,9 +94,11 @@ public class UserController {
     @RequestMapping(method = PUT)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public void updateName(@RequestBody User user) {
+    public Response updateName(@RequestBody User user) {
         RestPreconditions.checkFound(user);
         RestPreconditions.checkFound(userService.getById(user.getId()));
         userService.update(user);
+
+        return Response.status(Response.Status.OK).build();
     }
 }

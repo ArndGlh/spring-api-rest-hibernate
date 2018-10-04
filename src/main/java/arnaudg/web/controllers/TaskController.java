@@ -9,12 +9,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
+import javax.ws.rs.core.Response;
 
+import static com.google.common.net.HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @RequestMapping(value = "/task")
+//@CrossOrigin(origins = "*")
 public class TaskController {
 
     @Autowired
@@ -25,8 +27,11 @@ public class TaskController {
      */
     @RequestMapping(method = GET)
     @ResponseBody
-    public List<Task> findAll() {
-        return taskService.findAll();
+    public Response findAll() {
+        return Response.status(Response.Status.OK)
+                .entity(taskService.findAll())
+                .header(ACCESS_CONTROL_ALLOW_ORIGIN, "*")
+                .build();
     }
 
     /**
@@ -34,8 +39,11 @@ public class TaskController {
      */
     @RequestMapping(method = GET, value = "/id/{id}")
     @ResponseBody
-    public Task findById(@PathVariable("id") int id) {
-        return RestPreconditions.checkFound(taskService.getById(id));
+    public Response findById(@PathVariable("id") int id) {
+        return Response.status(Response.Status.OK)
+                .entity(RestPreconditions.checkFound(taskService.getById(id)))
+                .header(ACCESS_CONTROL_ALLOW_ORIGIN, "*")
+                .build();
     }
 
     /**
@@ -43,8 +51,11 @@ public class TaskController {
      */
     @RequestMapping(method = GET, value = "/game/{userId}/{gameId}")
     @ResponseBody
-    public List findByProgress(@PathVariable("userId") int userId, @PathVariable("gameId") int gameId) {
-        return RestPreconditions.checkFound(taskService.getByProgress(gameId, userId));
+    public Response findByProgress(@PathVariable("userId") int userId, @PathVariable("gameId") int gameId) {
+        return Response.status(Response.Status.OK)
+                .entity(RestPreconditions.checkFound(taskService.getByProgress(gameId, userId)))
+                .header(ACCESS_CONTROL_ALLOW_ORIGIN, "*")
+                .build();
     }
 
     /**
@@ -53,26 +64,32 @@ public class TaskController {
     @RequestMapping(method = POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public void createTask(@RequestBody TaskDto taskDto) {
+    public Response createTask(@RequestBody TaskDto taskDto) {
         RestPreconditions.checkFound(taskDto);
         taskService.create(taskDto);
+
+        return Response.status(Response.Status.CREATED).build();
     }
 
     /**
      * Update one task
      */
     @RequestMapping(method = PUT)
-    public void updateTask(@Valid @RequestBody TaskDto taskRequestDto) {
+    public Response updateTask(@Valid @RequestBody TaskDto taskRequestDto) {
         RestPreconditions.checkFound(taskRequestDto);
         taskService.save(taskRequestDto);
+
+        return Response.status(Response.Status.OK).build();
     }
 
     /**
      * Delete one task
      */
     @RequestMapping(method = DELETE, value = "/{taskId}")
-    public void deleteTask(@PathVariable int taskId) {
+    public Response deleteTask(@PathVariable int taskId) {
         Task task = taskService.getById(RestPreconditions.checkFound(taskId));
         taskService.delete(task);
+
+        return Response.status(Response.Status.OK).build();
     }
 }

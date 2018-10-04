@@ -7,12 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.ws.rs.core.Response;
+
 import java.util.List;
 
+import static com.google.common.net.HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @RequestMapping(value = "/game")
+@CrossOrigin(origins = "*")
 public class GameController {
 
     @Autowired
@@ -23,7 +27,7 @@ public class GameController {
      */
     @RequestMapping(method = GET)
     @ResponseBody
-    public List<Game> findAll() {
+    public List findAll() {
         return gameService.findAll();
     }
 
@@ -51,7 +55,7 @@ public class GameController {
     @RequestMapping(method = GET, value = "/name/{name}")
     @ResponseBody
     public List findByName(@PathVariable("name") String name) {
-        return RestPreconditions.checkFound(gameService.getByName(name));
+        return gameService.getByName(name);
     }
 
     /**
@@ -59,8 +63,11 @@ public class GameController {
      */
     @RequestMapping(method = GET, value = "/genre/{genre}")
     @ResponseBody
-    public List findByGenre(@PathVariable("genre") String genre) {
-        return RestPreconditions.checkFound(gameService.getByGenre(genre));
+    public Response findByGenre(@PathVariable("genre") String genre) {
+        return Response.status(Response.Status.OK)
+                .entity(RestPreconditions.checkFound(gameService.getByGenre(genre)))
+                .header(ACCESS_CONTROL_ALLOW_ORIGIN, "*")
+                .build();
     }
 
     /**

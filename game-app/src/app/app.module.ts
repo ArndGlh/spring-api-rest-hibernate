@@ -5,8 +5,8 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { GameComponent } from './game/game.component';
 import { GameService } from './services/game.service';
+import { ConfigService } from './services/config.service';
 import { AuthComponent } from './auth/auth.component';
 import { GameViewComponent } from './game-view/game-view.component';
 import { Routes, RouterModule } from '@angular/router';
@@ -34,7 +34,6 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    GameComponent,
     AuthComponent,
     GameViewComponent,
     SingleGameComponent,
@@ -55,7 +54,8 @@ const appRoutes: Routes = [
     GameService,
     AuthService,
     AuthGuard,
-    UserService
+    UserService,
+    ConfigService
   ],
   bootstrap: [AppComponent]
 })

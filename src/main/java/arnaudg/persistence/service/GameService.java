@@ -4,6 +4,9 @@ import arnaudg.persistence.models.Game;
 
 import java.util.List;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.persister.entity.AbstractEntityPersister;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -41,7 +44,7 @@ public class GameService {
     }
 
     public List findAllAndProgress() {
-        return entityManager.createQuery("from Game, Progress where Game.id = Progress.game_id") // TODO
+        return entityManager.createQuery("from Game g, Progress p where g.id = p.game.id and p.user.id = 2") // TODO user id en dur a changer
                 .getResultList();
     }
 
