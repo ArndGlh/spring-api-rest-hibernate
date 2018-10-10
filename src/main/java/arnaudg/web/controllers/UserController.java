@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import javax.ws.rs.core.Response;
+import java.util.List;
+
 import static com.google.common.net.HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
@@ -17,7 +19,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
  */
 @Controller
 @RequestMapping(value = "/user")
-//@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*")
 public class UserController {
 
     @Autowired
@@ -28,11 +30,8 @@ public class UserController {
      */
     @RequestMapping(method = GET)
     @ResponseBody
-    public Response findAll() {
-        return Response.status(Response.Status.OK)
-                .entity(userService.findAll())
-                .header(ACCESS_CONTROL_ALLOW_ORIGIN, "*")
-                .build();
+    public List findAll() {
+        return userService.findAll();
     }
 
     /**
@@ -40,11 +39,18 @@ public class UserController {
      */
     @RequestMapping(method = GET, value = "/{id}")
     @ResponseBody
-    public Response findAll(@PathVariable("id") int id) {
-        return Response.status(Response.Status.OK)
-                .entity(RestPreconditions.checkFound(userService.getById(id)))
-                .header(ACCESS_CONTROL_ALLOW_ORIGIN, "*")
-                .build();
+    public User findAll(@PathVariable("id") int id) {
+        return RestPreconditions.checkFound(userService.getById(id));
+    }
+
+    /**
+     * Authenticate the user
+     * @return user object with jwt token
+     */
+    @RequestMapping(method = POST, value = "/authenticate")
+    @ResponseBody
+    public User authenticate(@RequestBody User user) {
+        return RestPreconditions.checkFound(userService.authenticate(user));
     }
 
     /**
@@ -54,9 +60,9 @@ public class UserController {
     @RequestMapping(method = POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public Response create(@RequestBody User user) {
+    public void create(@RequestBody User user) {
         RestPreconditions.checkFound(user);
-        return Response.status(Response.Status.CREATED).entity(userService.create(user)).build();
+        userService.create(user);
     }
 
     /**
@@ -65,11 +71,9 @@ public class UserController {
     @RequestMapping(method = DELETE, value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Response delete(@PathVariable("id") long id) {
+    public void delete(@PathVariable("id") long id) {
         User user = new User(id);
         userService.delete(user);
-
-        return Response.status(Response.Status.OK).build();
     }
 
     /**
@@ -77,7 +81,7 @@ public class UserController {
      */
     @RequestMapping(method=GET, value = "/email/{email}")
     @ResponseBody
-    public Response getByEmail(@PathVariable(value = "email") String email) {
+    public String getByEmail(@PathVariable(value = "email") String email) {
         String userId = null;
         try {
             User user = userService.getByEmail(email);
@@ -85,7 +89,7 @@ public class UserController {
         } catch (Exception ex) {
             System.out.println("User not found: " + ex.toString());
         }
-        return Response.status(Response.Status.OK).entity(userId).build();
+        return userId;
     }
 
     /**
@@ -94,11 +98,9 @@ public class UserController {
     @RequestMapping(method = PUT)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Response updateName(@RequestBody User user) {
+    public void updateName(@RequestBody User user) {
         RestPreconditions.checkFound(user);
         RestPreconditions.checkFound(userService.getById(user.getId()));
         userService.update(user);
-
-        return Response.status(Response.Status.OK).build();
     }
 }

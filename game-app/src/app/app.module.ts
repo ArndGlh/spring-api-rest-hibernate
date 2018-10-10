@@ -1,63 +1,60 @@
+﻿import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-import { AppComponent } from './app.component';
-import { GameService } from './services/game.service';
-import { ConfigService } from './services/config.service';
-import { AuthComponent } from './auth/auth.component';
-import { GameViewComponent } from './game-view/game-view.component';
-import { Routes, RouterModule } from '@angular/router';
-import { AuthService } from './services/auth.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
+// used to create fake backend
+import { fakeBackendProvider } from './_helpers';
+
+import { AppComponent }  from './app.component';
+import { routing }        from './app.routing';
+
+import { MatIconModule } from '@angular/material';
+import { AlertComponent } from './_directives';
+import { AuthGuard } from './_guards';
+import { JwtInterceptor, ErrorInterceptor } from './_helpers';
+import { AlertService, AuthenticationService, UserService, GameService, ConfigService } from './_services';
+import { HomeComponent } from './home';
+import { LoginComponent } from './login';
+import { RegisterComponent } from './register';
 import { SingleGameComponent } from './single-game/single-game.component';
-import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
-import { AuthGuard } from './services/auth-gard.service';
-import { EditGameComponent } from './edit-game-component/edit-game-component.component';
-import { UserService } from './services/UserService'
-import { UserListComponent } from './user-list-component/user-list-component.component';
-import { NewUserComponent } from './new-user/new-user.component';
-
-const appRoutes: Routes = [
-  { path: 'games', canActivate: [AuthGuard], component: GameViewComponent },
-  { path: 'games/:id', canActivate: [AuthGuard], component: SingleGameComponent },
-  { path: 'edit', canActivate: [AuthGuard], component: EditGameComponent},
-  { path: 'users', canActivate: [AuthGuard], component: UserListComponent },
-  { path: 'new-user',canActivate: [AuthGuard],  component: NewUserComponent },
-  { path: 'auth', component: AuthComponent },
-  { path: '', canActivate: [AuthGuard], component: GameViewComponent },
-  { path: 'not-found', component: FourOhFourComponent },
-  { path: '**', redirectTo: 'not-found' }
-];
+import { EditGameComponent } from './edit-game/edit-game.component';
+import { GameViewComponent } from './game-view/game-view.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AuthComponent,
-    GameViewComponent,
-    SingleGameComponent,
-    FourOhFourComponent,
-    EditGameComponent,
-    UserListComponent,
-    NewUserComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    HttpClientModule,
-    RouterModule.forRoot(appRoutes),
-    ReactiveFormsModule
-  ],
-  providers: [
-    GameService,
-    AuthService,
-    AuthGuard,
-    UserService,
-    ConfigService
-  ],
-  bootstrap: [AppComponent]
+    imports: [
+        BrowserModule,
+        ReactiveFormsModule,
+        FormsModule,
+        HttpClientModule,
+        MatIconModule,
+        routing
+    ],
+    declarations: [
+        AppComponent,
+        AlertComponent,
+        HomeComponent,
+        LoginComponent,
+        RegisterComponent,
+        GameViewComponent,
+        SingleGameComponent,
+        EditGameComponent
+    ],
+    providers: [
+        AuthGuard,
+        AlertService,
+        AuthenticationService,
+        GameService,
+        ConfigService,
+        UserService,
+        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+
+        // provider used to create fake backend
+        fakeBackendProvider
+    ],
+    bootstrap: [AppComponent]
 })
 
 export class AppModule { }

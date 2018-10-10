@@ -1,28 +1,28 @@
 <h2>My Games </h2>
       <p>Last updated : {{ lastUpdate | async | date:short }}</p>
-      <table class="table table-dark">
+      <table class="table table-dark table-striped">
         <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Title</th>
-              <th scope="col">Genre</th>
-              <th scope="col">First release</th>
-              <th scope="col">Progress</th>
+              <th scope="col"><a (click)="sortByTitle()">Title</a></th>
+              <th scope="col"><a (click)="sortByGenre()">Genre</a></th>
+              <th scope="col"><a (click)="sortByRelease()">First release</a></th>
+              <th scope="col"><a (click)="sortByProgress()">Progress</a></th>
             </tr>
         </thead>
         <tbody>
             <ng-container *ngFor="let game of games; let i = index">
               <tr>
                 <th scope="row">{{ i+1 }}</th>
-                <td>{{ game[0].title }}</td>
+                <td><a [routerLink]="game[0].id">{{ game[0].title }}</a></td>
                 <td>{{ game[0].genre }}</td>
                 <td>{{ game[0].year }}</td>
-                <td><a [routerLink]="game[0].id">{{ game[1].completion }}% done</a></td>
+                <td>{{ game[1].completion }}% done</td>
               </tr>
             </ng-container>
         </tbody>
       </table>
-      <button class="btn btn-primary" (click)="onSave()">Save games</button>
+      <!-- <button class="btn btn-primary" (click)="onSave()">Save games</button> -->
       <!-- <button class="btn btn-success"
       (click)="onAllumer()">Tout allumer</button>
       <button class="btn btnS-danger"
@@ -38,3 +38,5 @@
                        [id]="game.id"></app-game>
       </ul>
       <button class="btn btn-primary" (click)="onSave()">Save games</button> -->
+
+

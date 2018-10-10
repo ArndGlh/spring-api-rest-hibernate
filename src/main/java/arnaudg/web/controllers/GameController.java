@@ -5,13 +5,8 @@ import arnaudg.persistence.service.GameService;
 import arnaudg.web.util.RestPreconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
-import javax.ws.rs.core.Response;
-
 import java.util.List;
-
-import static com.google.common.net.HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
@@ -63,11 +58,8 @@ public class GameController {
      */
     @RequestMapping(method = GET, value = "/genre/{genre}")
     @ResponseBody
-    public Response findByGenre(@PathVariable("genre") String genre) {
-        return Response.status(Response.Status.OK)
-                .entity(RestPreconditions.checkFound(gameService.getByGenre(genre)))
-                .header(ACCESS_CONTROL_ALLOW_ORIGIN, "*")
-                .build();
+    public List findByGenre(@PathVariable("genre") String genre) {
+        return RestPreconditions.checkFound(gameService.getByGenre(genre));
     }
 
     /**

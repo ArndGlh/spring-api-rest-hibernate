@@ -1,6 +1,7 @@
 package arnaudg.persistence.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -35,15 +36,18 @@ public class UserService {
         return RestPreconditions.checkFound(getByEmail(user.getEmail()).getId());
     }
 
-    /**
-     * Delete the user from the database.
-     */
-    public void delete(User user) {
-        if (entityManager.contains(user)) {
-            entityManager.remove(user);
-        } else {
-            entityManager.remove(entityManager.merge(user));
+    public User authenticate(User userToAuthenticate) {
+        List<User> users = findAll();
+        User result = users.stream()
+                .filter(user -> user.getPassword().equals(userToAuthenticate.getPassword()) && user.getEmail().equals(userToAuthenticate.getEmail()))
+                .findAny()
+                .orElse(null);
+
+        if(result != null){
+            result.setToken("fake-jwt-token"); // TODO
+            return result;
         }
+        return new User();
     }
 
     /**
@@ -75,5 +79,16 @@ public class UserService {
      */
     public void update(User user) {
         entityManager.merge(user);
+    }
+
+    /**
+     * Delete the user from the database.
+     */
+    public void delete(User user) {
+        if (entityManager.contains(user)) {
+            entityManager.remove(user);
+        } else {
+            entityManager.remove(entityManager.merge(user));
+        }
     }
 }
