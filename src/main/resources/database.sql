@@ -41,10 +41,7 @@ CREATE TABLE IF NOT EXISTS `game` (
 -- Déchargement des données de la table `game`
 --
 
-INSERT INTO `game` (`id`, `title`, `genre`, `year`) VALUES
-(1, 'Zelda : Breath of the wild', 'Action-aventure', 2017),
-(2, 'Mario Kart 8 deluxe', 'Course', 2017),
-(3, 'Mario Galaxy', 'Plateforme', 2007);
+
 
 -- --------------------------------------------------------
 
@@ -98,10 +95,17 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `name`, `password`) VALUES (NULL, 'mail@mail.fr', 'test', 'test');
-INSERT INTO `users` (`id`, `email`, `name`, `password`) VALUES (NULL, 'martin@mail.fr', 'martin', 'martin');
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+INSERT INTO `game` (`id`, `title`, `genre`, `year`) VALUES
+(1, 'Zelda : Breath of the wild', 'Action-aventure', 2017),
+(2, 'Mario Kart 8 deluxe', 'Course', 2017),
+(3, 'Mario Galaxy', 'Plateforme', 2007);
+
+INSERT INTO `users` (`id`, `email`, `name`, `password`) VALUES (NULL, 'mail@mail.fr', 'test', 'test');
+INSERT INTO `users` (`id`, `email`, `name`, `password`) VALUES (NULL, 'martin@mail.fr', 'martin', 'martin');
