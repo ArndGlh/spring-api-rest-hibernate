@@ -43,8 +43,9 @@ public class GameService {
         return entityManager.createQuery("from Game").getResultList();
     }
 
-    public List findAllAndProgress() {
-        return entityManager.createQuery("from Game g, Progress p where g.id = p.game.id and p.user.id = 2") // TODO user id en dur a changer
+    public List findAllAndProgress(long id) {
+        return entityManager.createQuery("from Game g, Progress p where g.id = p.game.id and p.user.id = :id")
+                .setParameter("id", id)
                 .getResultList();
     }
 

@@ -4,12 +4,11 @@ import { GameService } from '../_services/game.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-edit-game',
-  templateUrl: './edit-game.component.html'
+  selector: 'app-new-game',
+  templateUrl: './new-game.component.html'
 })
-export class EditGameComponent implements OnInit {
+export class NewGameComponent implements OnInit {
 
-  defaultOnOff = 'éteint';
   constructor(private gameService: GameService, private router: Router) {
 
    }
@@ -18,9 +17,8 @@ export class EditGameComponent implements OnInit {
   }
 
   onSubmit(form: FormsModule) {
-    const name = form['name'];
-    const status = form['status'];
-    //this.gameService.addGame(name, status);
+    const id = form['id'];
+    this.gameService.addGameToUser(id);
     this.router.navigate(['/games']);
   }
 }

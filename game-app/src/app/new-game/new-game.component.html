@@ -1,0 +1,34 @@
+<div class="row">
+  <div class="col-sm-8 col-sm-offset-2">
+    
+      <table class="table table-dark table-striped">
+          <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col"><a (click)="sortByTitle()">Title</a></th>
+                <th scope="col"><a (click)="sortByGenre()">Genre</a></th>
+                <th scope="col"><a (click)="sortByRelease()">First release</a></th>
+                <th scope="col"><a (click)="sortByProgress()">Progress</a></th>
+                <th></th>
+              </tr>
+          </thead>
+          <tbody>
+              <ng-container *ngFor="let game of games; let i = index">
+                <tr>
+                  <th scope="row">{{ i+1 }}</th>
+                  <td><a [routerLink]="game[0].id">{{ game[0].title }}</a></td>
+                  <td>{{ game[0].genre }}</td>
+                  <td>{{ game[0].year }}</td>
+                  <td>{{ game[1].completion }}% done</td>
+                  <td>
+                    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+                      <input id="id" name="id" type="hidden" value="game[0].id">
+                      <button class="btn btn-primary" type="submit" >+</button>
+                    </form>
+                  </td>
+                </tr>
+              </ng-container>
+          </tbody>
+        </table>
+  </div>
+</div>

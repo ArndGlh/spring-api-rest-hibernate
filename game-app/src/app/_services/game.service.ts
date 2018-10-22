@@ -18,10 +18,11 @@ export class GameService {
         this.gamesSubject.next(this.games);
     }
 
-    getGamesFromServer() {
+    getGamesFromServer(userId: number) {
 
       this.httpClient
-        .get<any[]>('http://localhost:8080/api/rest/v1/game/progress')
+        .get<any[]>('http://localhost:8080/game/progress/'+userId)
+
         .subscribe(
           (response) => {
             console.log(response);
@@ -78,18 +79,18 @@ export class GameService {
       );
     }
 
-    // addGame(title: string, genre: string, year: number) {
-    //     const gameObject = {
-    //         title: '',
-    //         genre: '',
-    //         year: 0
-    //     };
-    //     gameObject.title = title;
-    //     gameObject.genre = genre;
-    //     gameObject.year = year;
-    //     this.games.push(gameObject);
-    //     this.emitGameSubject();
-    // }
+    addGameToUser(id: number) {
+        const gameObject = {
+            title: '',
+            genre: '',
+            year: 0
+        };
+        gameObject.title = title;
+        gameObject.genre = genre;
+        gameObject.year = year;
+        this.games.push(gameObject);
+        this.emitGameSubject();
+    }
 
     // switchOnAll() {
     //     for(let game of this.games) {
