@@ -21,7 +21,7 @@ export class GameService {
     getGamesFromServer() {
 
       this.httpClient
-        .get<any[]>('http://localhost:8080/game/progress')
+        .get<any[]>('http://localhost:8080/api/rest/v1/game/progress')
         .subscribe(
           (response) => {
             console.log(response);
@@ -51,11 +51,11 @@ export class GameService {
     // }
 
     getGameById(id: number) : Observable <Game[]> {
-      return this.httpClient.get<Game[]>('http://localhost:8080/game/id/'+id);
+      return this.httpClient.get<Game[]>('http://localhost:8080/api/rest/v1/game/id/'+id);
     }
 
     getTasksByGameId(id: number) : Observable <Task[]> {
-      return this.httpClient.get<Task[]>('http://localhost:8080/task/game/2/'+id);
+      return this.httpClient.get<Task[]>('http://localhost:8080/api/rest/v1/task/game/2/'+id);
     }
     
     saveGameToServer() {
