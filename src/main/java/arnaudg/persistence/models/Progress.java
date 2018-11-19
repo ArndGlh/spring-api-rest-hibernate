@@ -32,9 +32,6 @@ public class Progress {
     @JsonIgnore
     private User user;
 
-    @OneToMany(targetEntity = Task.class, cascade = CascadeType.ALL)
-    private List taskList;
-
     private double completion;
 
     public Progress(){}
@@ -51,14 +48,6 @@ public class Progress {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public List getTaskList() {
-        return taskList;
-    }
-
-    public void setTaskList(List taskList) {
-        this.taskList = taskList;
     }
 
     public double getCompletion() {
@@ -89,7 +78,6 @@ public class Progress {
     public String toString() {
         return "Progress{" +
                 "id=" + id +
-                ", taskList=" + taskList +
                 ", completion=" + completion +
                 '}';
     }

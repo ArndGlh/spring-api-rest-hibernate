@@ -8,7 +8,7 @@ public class TaskDto {
     private int id;
 
     @NotNull
-    private int progressId;
+    private int gameId;
 
     @NotNull
     private int actualProgress;
@@ -27,12 +27,12 @@ public class TaskDto {
         this.id = id;
     }
 
-    public int getProgressId() {
-        return progressId;
+    public int getGameId() {
+        return gameId;
     }
 
-    public void setProgressId(int progressId) {
-        this.progressId = progressId;
+    public void setGameId(int gameId) {
+        this.gameId = gameId;
     }
 
     public int getActualProgress() {

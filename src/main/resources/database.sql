@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 29 oct. 2018 à 10:43
+-- Généré le :  lun. 19 nov. 2018 à 17:02
 -- Version du serveur :  5.7.21
 -- Version de PHP :  5.6.35
 
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `progress` (
   PRIMARY KEY (`id`),
   KEY `FKqcjaw15mhrccxnip4h6yt7yfl` (`game_id`),
   KEY `FK7fyumbty8qgbd7sfbbjnqdo62` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `progress`
@@ -91,34 +91,8 @@ CREATE TABLE IF NOT EXISTS `progress` (
 INSERT INTO `progress` (`id`, `completion`, `game_id`, `user_id`) VALUES
 (1, 80, 1, 1),
 (2, 40, 2, 2),
-(3, 100, 3, 2);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `progress_task`
---
-
-DROP TABLE IF EXISTS `progress_task`;
-CREATE TABLE IF NOT EXISTS `progress_task` (
-  `progress_id` int(11) NOT NULL,
-  `taskList_id` int(11) NOT NULL,
-  UNIQUE KEY `UK_7ekc6yvvf8iiiq7qoo9q78kqa` (`taskList_id`),
-  KEY `FKqsxe2v0a747o7d2258x2hku7x` (`progress_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Déchargement des données de la table `progress_task`
---
-
-INSERT INTO `progress_task` (`progress_id`, `taskList_id`) VALUES
-(1, 1),
-(1, 2),
-(1, 3),
-(2, 4),
-(3, 5),
-(3, 6),
-(2, 7);
+(3, 100, 3, 2),
+(5, 0, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -133,16 +107,16 @@ CREATE TABLE IF NOT EXISTS `task` (
   `description` varchar(255) DEFAULT NULL,
   `max_progress` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `progress_id` int(11) NOT NULL,
+  `game_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FKqnwncr3ta48j7nhci0ags92rx` (`progress_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+  KEY `FKt4fvut9qol1ykh7ovpa62fkv9` (`game_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `task`
 --
 
-INSERT INTO `task` (`id`, `actual_progress`, `description`, `max_progress`, `name`, `progress_id`) VALUES
+INSERT INTO `task` (`id`, `actual_progress`, `description`, `max_progress`, `name`, `game_id`) VALUES
 (1, 100, 'Finir la quête principale', 100, 'Quete principale', 1),
 (2, 100, 'Finir les quete secondaire', 100, 'Quête secondaire', 1),
 (3, 360, 'Récolter toute les noix kogoru', 900, 'Noix kogoru', 1),
@@ -159,12 +133,12 @@ INSERT INTO `task` (`id`, `actual_progress`, `description`, `max_progress`, `nam
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) NOT NULL,
   `email` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `users`

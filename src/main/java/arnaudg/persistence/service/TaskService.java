@@ -1,6 +1,7 @@
 package arnaudg.persistence.service;
 
 import arnaudg.persistence.dto.TaskDto;
+import arnaudg.persistence.models.Game;
 import arnaudg.persistence.models.Progress;
 import arnaudg.persistence.models.Task;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +20,14 @@ public class TaskService {
     private EntityManager entityManager;
 
     @Autowired
-    private ProgressService progressService;
+    private GameService gameService;
 
     /**
      * Save the task in the database.
      */
     public void create(TaskDto taskDto) {
-        Progress progress = progressService.getById(taskDto.getProgressId());
-        Task task = new Task(progress,
+        Game game = gameService.getById(taskDto.getGameId());
+        Task task = new Task(game,
                 taskDto.getName(),
                 taskDto.getDescription(),
                 taskDto.getActualProgress(),

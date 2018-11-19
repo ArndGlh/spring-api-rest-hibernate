@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Table(name="task")
 public class Task {
 
-    // TODO : Optimiser la table Task => "actual progress" n'as rien a y faire, doublons"
+    // TODO : Optimiser la table Task => "actual game" n'as rien a y faire, doublons"
 
     @Id
     @Column(name="id")
@@ -22,10 +22,10 @@ public class Task {
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "progress_id", nullable = false)
+    @JoinColumn(name = "game_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-    private Progress progress;
+    private Game game;
 
     private String name;
     private String description;
@@ -34,8 +34,8 @@ public class Task {
 
     public Task(){}
 
-    public Task(Progress progress, String name, String description, int actual_progress, int max_progress) {
-        this.progress = progress;
+    public Task(Game game, String name, String description, int actual_progress, int max_progress) {
+        this.game = game;
         this.name = name;
         this.description = description;
         this.actual_progress = actual_progress;
