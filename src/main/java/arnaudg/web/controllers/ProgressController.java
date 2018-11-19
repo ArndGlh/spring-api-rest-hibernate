@@ -16,7 +16,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @RequestMapping(value = "/progress")
-//@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*")
 public class ProgressController {
 
     @Autowired
@@ -30,7 +30,6 @@ public class ProgressController {
     public Response findAll() {
         return Response.status(Response.Status.OK)
                 .entity(progressService.findAll())
-                .header(ACCESS_CONTROL_ALLOW_ORIGIN, "*")
                 .build();
     }
 
@@ -42,7 +41,6 @@ public class ProgressController {
     public Response findById(@PathVariable("id") int id) {
         return Response.status(Response.Status.OK)
                 .entity(RestPreconditions.checkFound(progressService.getById(id)))
-                .header(ACCESS_CONTROL_ALLOW_ORIGIN, "*")
                 .build();
     }
 
@@ -54,7 +52,6 @@ public class ProgressController {
     public Response findByGame(@PathVariable("id") int id) {
         return Response.status(Response.Status.OK)
                 .entity(RestPreconditions.checkFound(progressService.getByGame(id)))
-                .header(ACCESS_CONTROL_ALLOW_ORIGIN, "*")
                 .build();
     }
 
@@ -67,7 +64,6 @@ public class ProgressController {
     public Response createProgress(@RequestBody ProgressDto progressDto) {
         RestPreconditions.checkFound(progressDto);
         progressService.create(progressDto);
-
         return Response.status(Response.Status.CREATED).build();
     }
 

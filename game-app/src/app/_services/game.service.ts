@@ -9,10 +9,12 @@ import { Task } from '../_models/Task.model';
 export class GameService {
     
     gamesSubject = new Subject<any[]>();
-    private games: any;
 
-    constructor(private httpClient: HttpClient){
-    }
+    private games: any;
+    readonly BASE_URL = 'http://localhost:8080/api/rest/v1/';
+    readonly httpOptions = {headers: new HttpHeaders({'Content-Type':'application/json'})};
+    
+    constructor(private httpClient: HttpClient){}
     
     emitGameSubject() {
         this.gamesSubject.next(this.games);
@@ -21,11 +23,10 @@ export class GameService {
     getGamesFromServer(userId: number) {
 
       this.httpClient
-        .get<any[]>('http://localhost:8080/game/progress/'+userId)
+        .get<any[]>(this.BASE_URL+'game/progress/'+userId)
 
         .subscribe(
           (response) => {
-            console.log(response);
             this.games = response;
             this.emitGameSubject();
           },
@@ -35,39 +36,17 @@ export class GameService {
         );
     }
 
-    // getGameById(id: number) {
-    //   this.httpClient
-    //   .get<any[]>('http://localhost:8080/game/id/'+id)
-    //   .subscribe(
-    //     (response) => {
-    //       console.log(response);
-          
-    //       // this.games = response;
-    //       // this.emitGameSubject();
-    //     },
-    //     (error) => {
-    //       console.log('Erreur ! : ' + error);
-    //     }
-    //   );
-    // }
-
     getGameById(id: number) : Observable <Game[]> {
-      return this.httpClient.get<Game[]>('http://localhost:8080/api/rest/v1/game/id/'+id);
+      return this.httpClient.get<Game[]>(this.BASE_URL+'game/id/'+id);
     }
 
     getTasksByGameId(id: number) : Observable <Task[]> {
-      return this.httpClient.get<Task[]>('http://localhost:8080/api/rest/v1/task/game/2/'+id);
+      return this.httpClient.get<Task[]>(this.BASE_URL+'task/game/2/'+id);
     }
     
     saveGameToServer() {
-      const httpOptions = {
-          headers: new HttpHeaders({
-            'Content-Type':'application/json'
-          })
-      };
-
       this.httpClient
-        .post('http://localhost:8080/api/rest/v1/game', this.games, httpOptions)
+        .post(this.BASE_URL+'game', this.games, this.httpOptions)
         
         .subscribe(
           () => {
@@ -79,41 +58,33 @@ export class GameService {
       );
     }
 
-    addGameToUser(id: number) {
+    addGameToUser(userId: number, gameId: number) : Observable<boolean>{
         const gameObject = {
-            title: '',
-            genre: '',
-            year: 0
+          gameId: 0,
+          userId: 0,
+          completion: 0
         };
-        gameObject.title = title;
-        gameObject.genre = genre;
-        gameObject.year = year;
-        this.games.push(gameObject);
-        this.emitGameSubject();
+        gameObject.userId = userId;
+        gameObject.gameId = gameId;
+
+      this.httpClient
+        .post(this.BASE_URL+'progress', gameObject, this.httpOptions)
+        
+        .subscribe(
+          () => {
+            console.log('Enregistrement terminé !');
+            return true;
+          },
+          (error) => {
+            console.log('Erreur ! : ' + error);
+            return false;
+          }
+      );
+
+      return new Observable(null);
     }
 
-    // switchOnAll() {
-    //     for(let game of this.games) {
-    //         game.status = 'allumé';
-    //     }
-    //     this.emitGameSubject();
-    // }
-    
-    // switchOffAll() {
-    //     for(let game of this.games) {
-    //         game.status = 'éteint';
-    //         this.emitGameSubject();
-    //     }
-    // }
-    
-    // switchOnOne(i: number) {
-    //     this.games[i].status = 'allumé';
-    //     this.emitGameSubject();
-    // }
-    
-    // switchOffOne(i: number) {
-    //     this.games[i].status = 'éteint';
-    //     this.emitGameSubject();
-    // }
-    
+    searchGames(search: string) : Observable <Game[]> {
+      return this.httpClient.get<Game[]>(this.BASE_URL+'game/name/'+search)
+    }
 }

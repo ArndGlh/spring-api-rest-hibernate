@@ -10,7 +10,8 @@ import { fakeBackendProvider } from './_helpers';
 import { AppComponent }  from './app.component';
 import { routing }        from './app.routing';
 
-import { MatIconModule } from '@angular/material';
+import { MatIconModule, MatFormFieldModule, MatDialogModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlertComponent } from './_directives';
 import { AuthGuard } from './_guards';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
@@ -19,7 +20,7 @@ import { HomeComponent } from './home';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
 import { SingleGameComponent } from './single-game/single-game.component';
-import { EditGameComponent } from './edit-game/edit-game.component';
+import { NewGameComponent } from './new-game/new-game.component';
 import { GameViewComponent } from './game-view/game-view.component';
 
 @NgModule({
@@ -29,6 +30,9 @@ import { GameViewComponent } from './game-view/game-view.component';
         FormsModule,
         HttpClientModule,
         MatIconModule,
+        MatFormFieldModule,
+        MatDialogModule,
+        BrowserAnimationsModule,
         routing
     ],
     declarations: [
@@ -39,7 +43,7 @@ import { GameViewComponent } from './game-view/game-view.component';
         RegisterComponent,
         GameViewComponent,
         SingleGameComponent,
-        EditGameComponent
+        NewGameComponent
     ],
     providers: [
         AuthGuard,

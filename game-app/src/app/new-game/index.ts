@@ -1,1 +1,1 @@
-export * from './edit-game.component';
+export * from './new-game.component';

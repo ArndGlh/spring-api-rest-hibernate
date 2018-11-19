@@ -12,30 +12,24 @@ export class SingleGameComponent implements OnInit {
 
   game: Game[];
   tasks: Task[];
+  private id: any;
   
   constructor(private gameService: GameService, private route: ActivatedRoute) { }
   
   ngOnInit() {
+    this.id = this.route.snapshot.params['id'];
     this.getGames();
     this.getTasks();
   }
 
   getGames(): void {
-    const id = this.route.snapshot.params['id'];
-    this.gameService.getGameById(+id)
+    this.gameService.getGameById(+this.id)
       .subscribe(game => this.game = game);
       console.log(this.game);
   }
 
   getTasks(): void{
-    const id = this.route.snapshot.params['id'];
-    this.gameService.getTasksByGameId(+id)
+    this.gameService.getTasksByGameId(+this.id)
       .subscribe(task => this.tasks = task);
-      console.log(this.tasks);
-      
   }
-
-  // ngOnDestroy() {
-  //   this.gameSubscription.unsubscribe();
-  // }
 }

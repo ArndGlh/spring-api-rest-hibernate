@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Inject } from '@angular/core';
 import { GameService } from '../_services/game.service';
 import { Subscription } from 'rxjs/Subscription';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -40,9 +40,6 @@ export class GameViewComponent implements OnInit, OnDestroy {
     );
     this.gameService.getGamesFromServer(JSON.parse(localStorage.getItem('currentUser')).id);
     this.gameService.emitGameSubject();
-  }
-
-  addGame() {
     
   }
   
@@ -51,6 +48,7 @@ export class GameViewComponent implements OnInit, OnDestroy {
   }
   
   sortByTitle(){
+    console.log(this.games);
     this.sortTitle = !this.sortTitle;
 
     if(this.sortTitle){
@@ -121,16 +119,4 @@ export class GameViewComponent implements OnInit, OnDestroy {
       });
     }
   }
-  // onAllumer() {
-  //   this.gameService.switchOnAll();
-  // }
-  
-  // onEteindre() {
-  //   if(confirm('Etes-vous sûr de vouloir éteindre tous vos appareils ?')) {
-  //     this.gameService.switchOffAll();
-  //   } else {
-  //     return null;
-  //   }
-  // }
-  
 }
