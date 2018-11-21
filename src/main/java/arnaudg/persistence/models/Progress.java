@@ -5,7 +5,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * Entity bean with JPA annotations
@@ -21,10 +20,10 @@ public class Progress {
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "game_id", nullable = false)
+    @JoinColumn(name = "task_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-    private Game game;
+    private Task task;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
@@ -32,14 +31,16 @@ public class Progress {
     @JsonIgnore
     private User user;
 
-    private double completion;
+    private int actual_progress;
+    private int max_progress;
 
     public Progress(){}
 
-    public Progress(Game game, User user, double completion) {
-        this.game = game;
+    public Progress(Task task, User user, int actual_progress, int max_progress) {
+        this.task = task;
         this.user = user;
-        this.completion = completion;
+        this.actual_progress = actual_progress;
+        this.max_progress = max_progress;
     }
 
     public int getId() {
@@ -50,20 +51,12 @@ public class Progress {
         this.id = id;
     }
 
-    public double getCompletion() {
-        return completion;
+    public Task getTask() {
+        return task;
     }
 
-    public void setCompletion(double completion) {
-        this.completion = completion;
-    }
-
-    public Game getGame() {
-        return game;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
+    public void setTask(Task task) {
+        this.task = task;
     }
 
     public User getUser() {
@@ -74,11 +67,30 @@ public class Progress {
         this.user = user;
     }
 
+    public int getActual_progress() {
+        return actual_progress;
+    }
+
+    public void setActual_progress(int actual_progress) {
+        this.actual_progress = actual_progress;
+    }
+
+    public int getMax_progress() {
+        return max_progress;
+    }
+
+    public void setMax_progress(int max_progress) {
+        this.max_progress = max_progress;
+    }
+
     @Override
     public String toString() {
         return "Progress{" +
                 "id=" + id +
-                ", completion=" + completion +
+                ", task=" + task +
+                ", user=" + user +
+                ", actual_progress=" + actual_progress +
+                ", max_progress=" + max_progress +
                 '}';
     }
 }

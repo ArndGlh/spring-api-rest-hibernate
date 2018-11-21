@@ -3,9 +3,9 @@
 import { HomeComponent } from './home';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
-import { SingleGameComponent } from './single-game/single-game.component';
-import { NewGameComponent } from './new-game/new-game.component';
-import { GameViewComponent } from './game-view/game-view.component';
+import { SingleGameComponent } from './single-task/single-task.component';
+import { NewGameComponent } from './new-task/new-task.component';
+import { GameViewComponent } from './task-view/task-view.component';
 import { AuthGuard } from './_guards';
 
 const appRoutes: Routes = [

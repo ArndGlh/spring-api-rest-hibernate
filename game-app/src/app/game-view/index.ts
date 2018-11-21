@@ -1,2 +1,2 @@
-export * from './game-view.component';
+export * from './task-view.component';
 export * from 'rxjs/Subscription';

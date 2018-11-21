@@ -1,1 +1,1 @@
-export * from './single-game.component';
+export * from './single-task.component';

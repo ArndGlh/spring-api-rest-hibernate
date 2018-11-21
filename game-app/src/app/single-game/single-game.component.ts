@@ -1,16 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { GameService } from '../_services/game.service';
+import { GameService } from '../_services/task.service';
 import { ActivatedRoute } from '@angular/router';
 import { Game } from '../_models/Game.model';
 import { Task } from '../_models/Task.model';
 
 @Component({
-  selector: 'app-single-game',
-  templateUrl: './single-game.component.html'
+  selector: 'app-single-task',
+  templateUrl: './single-task.component.html'
 })
 export class SingleGameComponent implements OnInit {
 
-  game: Game[];
+  task: Game[];
   tasks: Task[];
   private id: any;
   
@@ -24,8 +24,8 @@ export class SingleGameComponent implements OnInit {
 
   getGames(): void {
     this.gameService.getGameById(+this.id)
-      .subscribe(game => this.game = game);
-      console.log(this.game);
+      .subscribe(task => this.task = task);
+      console.log(this.task);
   }
 
   getTasks(): void{

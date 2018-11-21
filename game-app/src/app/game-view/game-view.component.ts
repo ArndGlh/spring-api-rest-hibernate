@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit, Inject } from '@angular/core';
-import { GameService } from '../_services/game.service';
+import { GameService } from '../_services/task.service';
 import { Subscription } from 'rxjs/Subscription';
 import {DomSanitizer} from '@angular/platform-browser';
 import {MatIconRegistry} from '@angular/material';
 
 @Component({
-  selector: 'app-game-view',
-  templateUrl: './game-view.component.html'
+  selector: 'app-task-view',
+  templateUrl: './task-view.component.html'
 })
 export class GameViewComponent implements OnInit, OnDestroy {
   

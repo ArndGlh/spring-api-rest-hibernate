@@ -11,13 +11,13 @@
             </tr>
         </thead>
         <tbody>
-            <ng-container *ngFor="let game of games; let i = index">
+            <ng-container *ngFor="let task of games; let i = index">
               <tr>
                 <th scope="row">{{ i+1 }}</th>
-                <td><a [routerLink]="game[0].id">{{ game[0].title }}</a></td>
-                <td>{{ game[0].genre }}</td>
-                <td>{{ game[0].year }}</td>
-                <td>{{ game[1].completion }}% done</td>
+                <td><a [routerLink]="task[0].id">{{ task[0].title }}</a></td>
+                <td>{{ task[0].genre }}</td>
+                <td>{{ task[0].year }}</td>
+                <td>{{ task[1].completion }}% done</td>
               </tr>
             </ng-container>
         </tbody>
@@ -32,11 +32,11 @@
 
 <!-- 
       <ul class="list-group">
-        <app-game  *ngFor="let game of games; let i = index"
-                       [gameTitle]="game.title"
-                       [gameGenre]="game.genre"
-                       [gameYear]="game.year" 
-                       [id]="game.id"></app-game>
+        <app-task  *ngFor="let task of games; let i = index"
+                       [gameTitle]="task.title"
+                       [gameGenre]="task.genre"
+                       [gameYear]="task.year"
+                       [id]="task.id"></app-task>
       </ul>
       <button class="btn btn-primary" (click)="onSave()">Save games</button> -->
 

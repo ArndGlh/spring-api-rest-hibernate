@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 19 nov. 2018 à 17:02
+-- Généré le :  mer. 21 nov. 2018 à 09:21
 -- Version du serveur :  5.7.21
 -- Version de PHP :  5.6.35
 
@@ -76,11 +76,12 @@ INSERT INTO `hibernate_sequence` (`next_val`) VALUES
 DROP TABLE IF EXISTS `progress`;
 CREATE TABLE IF NOT EXISTS `progress` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `completion` double NOT NULL,
-  `game_id` int(11) NOT NULL,
   `user_id` bigint(20) NOT NULL,
+  `task_id` int(11) NOT NULL,
+  `actual_progress` int(11) NOT NULL,
+  `max_progress` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FKqcjaw15mhrccxnip4h6yt7yfl` (`game_id`),
+  KEY `FKni6ct4x7y17pr3w1wdfrkogho` (`task_id`),
   KEY `FK7fyumbty8qgbd7sfbbjnqdo62` (`user_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
@@ -88,11 +89,12 @@ CREATE TABLE IF NOT EXISTS `progress` (
 -- Déchargement des données de la table `progress`
 --
 
-INSERT INTO `progress` (`id`, `completion`, `game_id`, `user_id`) VALUES
-(1, 80, 1, 1),
-(2, 40, 2, 2),
-(3, 100, 3, 2),
-(5, 0, 1, 2);
+INSERT INTO `progress` (`id`, `user_id`, `task_id`, `actual_progress`, `max_progress`) VALUES
+(4, 1, 4, 12, 12),
+(3, 1, 3, 360, 900),
+(2, 1, 2, 70, 70),
+(1, 1, 1, 11, 11),
+(5, 1, 7, 20, 52);
 
 -- --------------------------------------------------------
 
@@ -103,9 +105,7 @@ INSERT INTO `progress` (`id`, `completion`, `game_id`, `user_id`) VALUES
 DROP TABLE IF EXISTS `task`;
 CREATE TABLE IF NOT EXISTS `task` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `actual_progress` int(11) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `max_progress` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `game_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -116,14 +116,14 @@ CREATE TABLE IF NOT EXISTS `task` (
 -- Déchargement des données de la table `task`
 --
 
-INSERT INTO `task` (`id`, `actual_progress`, `description`, `max_progress`, `name`, `game_id`) VALUES
-(1, 100, 'Finir la quête principale', 100, 'Quete principale', 1),
-(2, 100, 'Finir les quete secondaire', 100, 'Quête secondaire', 1),
-(3, 360, 'Récolter toute les noix kogoru', 900, 'Noix kogoru', 1),
-(4, 40, 'Finir tout les championnats en 3 étoiles', 100, 'Coupes en or', 2),
-(5, 100, 'Finir la quête principale', 100, 'Quête principale', 3),
-(6, 100, 'Récolter toute les étoiles', 100, 'Etoiles', 3),
-(7, 40, 'Obtenir tout les éléments de personnalisation', 100, 'Eléments de personnalisation', 2);
+INSERT INTO `task` (`id`, `description`, `name`, `game_id`) VALUES
+(1, 'Finir la quête principale', 'Quete principale', 1),
+(2, 'Finir les quete secondaire', 'Quête secondaire', 1),
+(3, 'Récolter toute les noix kogoru', 'Noix kogoru', 1),
+(4, 'Finir tout les championnats en 3 étoiles', 'Coupes en or', 2),
+(5, 'Finir la quête principale', 'Quête principale', 3),
+(6, 'Récolter toute les étoiles', 'Etoiles', 3),
+(7, 'Obtenir tout les éléments de personnalisation', 'Eléments de personnalisation', 2);
 
 -- --------------------------------------------------------
 
@@ -145,8 +145,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `name`, `password`) VALUES
-(1, 'maill@mail.fr', 'test', ''),
-(2, 'martin@mail.fr', 'martin', 'martin');
+(1, 'martin@mail.fr', 'martin', 'martin');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

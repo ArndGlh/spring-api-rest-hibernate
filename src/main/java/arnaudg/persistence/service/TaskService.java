@@ -29,9 +29,7 @@ public class TaskService {
         Game game = gameService.getById(taskDto.getGameId());
         Task task = new Task(game,
                 taskDto.getName(),
-                taskDto.getDescription(),
-                taskDto.getActualProgress(),
-                taskDto.getMaxProgress());
+                taskDto.getDescription());
         entityManager.persist(task);
     }
 
@@ -55,8 +53,6 @@ public class TaskService {
         task.setId(taskDto.getId());
         task.setName(taskDto.getName());
         task.setDescription(taskDto.getDescription());
-        task.setMax_progress(taskDto.getMaxProgress());
-        task.setActual_progress(taskDto.getActualProgress());
 
         entityManager.merge(task);
     }

@@ -3,8 +3,8 @@ package arnaudg.persistence.service;
 import arnaudg.persistence.dto.ProgressDto;
 import arnaudg.persistence.models.Game;
 import arnaudg.persistence.models.Progress;
+import arnaudg.persistence.models.Task;
 import arnaudg.persistence.models.User;
-import arnaudg.web.util.RestPreconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,7 +21,7 @@ public class ProgressService {
     private EntityManager entityManager;
 
     @Autowired
-    private GameService gameService; // TODO pas beau
+    private TaskService taskService; // TODO pas beau
 
     @Autowired
     private UserService userService; // TODO pas beau
@@ -30,9 +30,9 @@ public class ProgressService {
      * Save the progress in the database.
      */
     public void create(ProgressDto progressDto) {
-        Game game = gameService.getById(progressDto.getGameId());
+        Task task = taskService.getById(progressDto.getTaskId());
         User user = userService.getById(progressDto.getUserId());
-        Progress progress = new Progress(game, user, progressDto.getCompletion());
+        Progress progress = new Progress(task, user, progressDto.getActual_progress(), progressDto.getMax_progress());
 
         entityManager.persist(progress);
     }
@@ -54,11 +54,12 @@ public class ProgressService {
 
     public void save(ProgressDto progressDto) {
         Progress progress = entityManager.find(Progress.class, progressDto.getId());
-        Game game = gameService.getById(progressDto.getGameId());
+        Task task = taskService.getById(progressDto.getTaskId());
         User user = userService.getById(progressDto.getUserId());
 
-        progress.setCompletion(progressDto.getCompletion());
-        progress.setGame(game);
+        progress.setActual_progress(progressDto.getActual_progress());
+        progress.setMax_progress(progressDto.getMax_progress());
+        progress.setTask(task);
         progress.setUser(user);
         entityManager.merge(progress);
     }

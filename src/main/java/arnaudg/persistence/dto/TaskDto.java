@@ -10,12 +10,6 @@ public class TaskDto {
     @NotNull
     private int gameId;
 
-    @NotNull
-    private int actualProgress;
-
-    @NotNull
-    private int maxProgress;
-
     private String name;
     private String description;
 
@@ -33,22 +27,6 @@ public class TaskDto {
 
     public void setGameId(int gameId) {
         this.gameId = gameId;
-    }
-
-    public int getActualProgress() {
-        return actualProgress;
-    }
-
-    public void setActualProgress(int actualProgress) {
-        this.actualProgress = actualProgress;
-    }
-
-    public int getMaxProgress() {
-        return maxProgress;
-    }
-
-    public void setMaxProgress(int maxProgress) {
-        this.maxProgress = maxProgress;
     }
 
     public String getName() {

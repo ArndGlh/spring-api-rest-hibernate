@@ -7,13 +7,16 @@ public class ProgressDto {
     private int id;
 
     @NotNull
-    private int gameId;
+    private int taskId;
 
     @NotNull
     private int userId;
 
     @NotNull
-    private double completion;
+    private int actual_progress;
+
+    @NotNull
+    private int max_progress;
 
     public int getId() {
         return id;
@@ -23,12 +26,12 @@ public class ProgressDto {
         this.id = id;
     }
 
-    public int getGameId() {
-        return gameId;
+    public int getTaskId() {
+        return taskId;
     }
 
-    public void setGameId(int gameId) {
-        this.gameId = gameId;
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
     }
 
     public int getUserId() {
@@ -39,11 +42,19 @@ public class ProgressDto {
         this.userId = userId;
     }
 
-    public double getCompletion() {
-        return completion;
+    public int getActual_progress() {
+        return actual_progress;
     }
 
-    public void setCompletion(double completion) {
-        this.completion = completion;
+    public void setActual_progress(int actual_progress) {
+        this.actual_progress = actual_progress;
+    }
+
+    public int getMax_progress() {
+        return max_progress;
+    }
+
+    public void setMax_progress(int max_progress) {
+        this.max_progress = max_progress;
     }
 }

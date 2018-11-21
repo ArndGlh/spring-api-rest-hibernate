@@ -23,7 +23,7 @@ export class GameService {
     getGamesFromServer(userId: number) {
 
       this.httpClient
-        .get<any[]>(this.BASE_URL+'game/progress/'+userId)
+        .get<any[]>(this.BASE_URL+'task/progress/'+userId)
 
         .subscribe(
           (response) => {
@@ -37,16 +37,16 @@ export class GameService {
     }
 
     getGameById(id: number) : Observable <Game[]> {
-      return this.httpClient.get<Game[]>(this.BASE_URL+'game/id/'+id);
+      return this.httpClient.get<Game[]>(this.BASE_URL+'task/id/'+id);
     }
 
     getTasksByGameId(id: number) : Observable <Task[]> {
-      return this.httpClient.get<Task[]>(this.BASE_URL+'task/game/2/'+id);
+      return this.httpClient.get<Task[]>(this.BASE_URL+'task/task/2/'+id);
     }
     
     saveGameToServer() {
       this.httpClient
-        .post(this.BASE_URL+'game', this.games, this.httpOptions)
+        .post(this.BASE_URL+'task', this.games, this.httpOptions)
         
         .subscribe(
           () => {
@@ -58,14 +58,14 @@ export class GameService {
       );
     }
 
-    addGameToUser(userId: number, gameId: number) : Observable<boolean>{
+    addGameToUser(userId: number, taskId: number) : Observable<boolean>{
         const gameObject = {
-          gameId: 0,
+          taskId: 0,
           userId: 0,
           completion: 0
         };
         gameObject.userId = userId;
-        gameObject.gameId = gameId;
+        gameObject.taskId = taskId;
 
       this.httpClient
         .post(this.BASE_URL+'progress', gameObject, this.httpOptions)
@@ -85,6 +85,6 @@ export class GameService {
     }
 
     searchGames(search: string) : Observable <Game[]> {
-      return this.httpClient.get<Game[]>(this.BASE_URL+'game/name/'+search)
+      return this.httpClient.get<Game[]>(this.BASE_URL+'task/name/'+search)
     }
 }

@@ -22,18 +22,18 @@
               </tr>
           </thead>
           <tbody>
-              <ng-container *ngFor="let game of games; let i = index">
+              <ng-container *ngFor="let task of games; let i = index">
                 <tr>
                   <th scope="row">{{ i+1 }}</th>
-                  <td>{{ game.title }}</td>
-                  <td>{{ game.genre }}</td>
-                  <td>{{ game.year }}</td>
+                  <td>{{ task.title }}</td>
+                  <td>{{ task.genre }}</td>
+                  <td>{{ task.year }}</td>
                   <td>
                     <!-- <form [formGroup]="addForm" (ngSubmit)="addGame()">
-                      <input class="form-control" formControlName="id" type="hidden" value="game.id">
+                      <input class="form-control" formControlName="id" type="hidden" value="task.id">
                       <button class="btn btn-primary" type="submit" >+</button>
                     </form> -->
-                    <button class="btn btn-primary" (click)="addGame(game.id)">+</button>
+                    <button class="btn btn-primary" (click)="addGame(task.id)">+</button>
                   </td>
                 </tr>
               </ng-container>
