@@ -12,6 +12,7 @@ public class TaskDto {
 
     private String name;
     private String description;
+    private int max_progress;
 
     public int getId() {
         return id;
@@ -43,5 +44,13 @@ public class TaskDto {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getMax_progress() {
+        return max_progress;
+    }
+
+    public void setMax_progress(int max_progress) {
+        this.max_progress = max_progress;
     }
 }

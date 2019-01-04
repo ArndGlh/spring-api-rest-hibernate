@@ -1,1 +1,1 @@
-export * from './new-task.component';
+export * from './new-game.component';

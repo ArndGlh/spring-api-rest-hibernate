@@ -32,7 +32,7 @@ public class GameController {
     @RequestMapping(method = GET, value = "/progress/{id}")
     @ResponseBody
     public List findAllAndProgress(@PathVariable("id") long id) {
-        return gameService.findAllAndProgress(id);
+        return gameService.findGamesByUser(id);
     }
 
     /**

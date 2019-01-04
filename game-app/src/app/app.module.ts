@@ -15,13 +15,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlertComponent } from './_directives';
 import { AuthGuard } from './_guards';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
-import { AlertService, AuthenticationService, UserService, GameService, ConfigService } from './_services';
+import { AlertService, AuthenticationService, UserService, ProgressService, GameService, TaskService, ConfigService } from './_services';
 import { HomeComponent } from './home';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
-import { SingleGameComponent } from './single-task/single-task.component';
-import { NewGameComponent } from './new-task/new-task.component';
-import { GameViewComponent } from './task-view/task-view.component';
+import { SingleGameComponent } from './single-game/single-game.component';
+import { NewGameComponent } from './new-game/new-game.component';
+import { GameViewComponent } from './game-view/game-view.component';
 
 @NgModule({
     imports: [
@@ -50,6 +50,8 @@ import { GameViewComponent } from './task-view/task-view.component';
         AlertService,
         AuthenticationService,
         GameService,
+        TaskService,
+        ProgressService,
         ConfigService,
         UserService,
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

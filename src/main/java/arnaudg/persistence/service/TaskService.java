@@ -2,7 +2,6 @@ package arnaudg.persistence.service;
 
 import arnaudg.persistence.dto.TaskDto;
 import arnaudg.persistence.models.Game;
-import arnaudg.persistence.models.Progress;
 import arnaudg.persistence.models.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -29,7 +28,8 @@ public class TaskService {
         Game game = gameService.getById(taskDto.getGameId());
         Task task = new Task(game,
                 taskDto.getName(),
-                taskDto.getDescription());
+                taskDto.getDescription(),
+                taskDto.getMax_progress());
         entityManager.persist(task);
     }
 
@@ -77,14 +77,12 @@ public class TaskService {
     }
 
     /**
-     * Get all task by progress and user
+     * Get all task by game
      *
      */
-    public List getByProgress(int gameId, int userId) {
-        return entityManager.createQuery("from Task where progress_id in (select id from Progress where user_id = :userId and game_id = :gameId)")
+    public List getByGame(int gameId) {
+        return entityManager.createQuery("from Task where game_id = :gameId order by id")
                 .setParameter("gameId", gameId)
-                .setParameter("userId", userId)
                 .getResultList();
-
     }
 }

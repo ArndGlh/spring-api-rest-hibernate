@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -29,12 +30,16 @@ public class ProgressService {
     /**
      * Save the progress in the database.
      */
-    public void create(ProgressDto progressDto) {
-        Task task = taskService.getById(progressDto.getTaskId());
-        User user = userService.getById(progressDto.getUserId());
-        Progress progress = new Progress(task, user, progressDto.getActual_progress(), progressDto.getMax_progress());
+    public boolean create(int userId, int gameId) {
+        List tasks = taskService.getByGame(gameId);
+        User user = userService.getById(userId);
 
-        entityManager.persist(progress);
+        for(Object task : tasks){
+            Task t = (Task) task;
+            Progress progress = new Progress(t, user, 0, t.getMax_progess());
+            entityManager.persist(progress);
+        }
+        return getByUserAndGame(userId,gameId).size() == tasks.size();
     }
 
     @SuppressWarnings("unchecked")
@@ -51,6 +56,14 @@ public class ProgressService {
                 .setParameter("game", game)
                 .getResultList();
     }
+
+    public List getByUserAndGame(int userId, int gameId){
+        return entityManager.createQuery("from Progress where user_id = :userId and task_id in (select id from Task where game_id = :gameId) order by task_id")
+                .setParameter("gameId", gameId)
+                .setParameter("userId", userId)
+                .getResultList();
+    }
+
 
     public void save(ProgressDto progressDto) {
         Progress progress = entityManager.find(Progress.class, progressDto.getId());

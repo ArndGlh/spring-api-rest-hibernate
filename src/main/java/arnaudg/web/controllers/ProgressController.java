@@ -7,11 +7,9 @@ import arnaudg.web.util.RestPreconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import javax.ws.rs.core.Response;
-
-import static com.google.common.net.HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN;
+import java.util.List;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
@@ -27,10 +25,8 @@ public class ProgressController {
      */
     @RequestMapping(method = GET)
     @ResponseBody
-    public Response findAll() {
-        return Response.status(Response.Status.OK)
-                .entity(progressService.findAll())
-                .build();
+    public List findAll() {
+        return progressService.findAll();
     }
 
     /**
@@ -38,10 +34,8 @@ public class ProgressController {
      */
     @RequestMapping(method = GET, value = "/id/{id}")
     @ResponseBody
-    public Response findById(@PathVariable("id") int id) {
-        return Response.status(Response.Status.OK)
-                .entity(RestPreconditions.checkFound(progressService.getById(id)))
-                .build();
+    public Progress findById(@PathVariable("id") int id) {
+        return RestPreconditions.checkFound(progressService.getById(id));
     }
 
     /**
@@ -49,22 +43,30 @@ public class ProgressController {
      */
     @RequestMapping(method = GET, value = "/game/{id}")
     @ResponseBody
-    public Response findByGame(@PathVariable("id") int id) {
-        return Response.status(Response.Status.OK)
-                .entity(RestPreconditions.checkFound(progressService.getByGame(id)))
-                .build();
+    public List findByGame(@PathVariable("id") int id) {
+        return RestPreconditions.checkFound(progressService.getByGame(id));
+    }
+
+    /**
+     * Get progress by user and game.
+     */
+    @RequestMapping(method = GET, value = "/user/{user_id}/{game_id}")
+    @ResponseBody
+    public List getByUserAndGame(@PathVariable("user_id") int userId, @PathVariable("game_id") int gameId) {
+        return RestPreconditions.checkFound(progressService.getByUserAndGame(userId, gameId));
     }
 
     /**
      * Create a new progress
+     * TODO change return type boolean
      */
     @RequestMapping(method = POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public Response createProgress(@RequestBody ProgressDto progressDto) {
-        RestPreconditions.checkFound(progressDto);
-        progressService.create(progressDto);
-        return Response.status(Response.Status.CREATED).build();
+    public boolean createProgress(@RequestBody int userId, int gameId) {
+        RestPreconditions.checkFound(userId);
+        RestPreconditions.checkFound(gameId);
+        return progressService.create(userId, gameId);
     }
 
     /**

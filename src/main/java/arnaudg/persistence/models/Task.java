@@ -14,8 +14,6 @@ import javax.persistence.*;
 @Table(name="task")
 public class Task {
 
-    // TODO : Optimiser la table Task => "actual game" n'as rien a y faire, doublons"
-
     @Id
     @Column(name="id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -29,13 +27,15 @@ public class Task {
 
     private String name;
     private String description;
+    private int max_progess;
 
     public Task(){}
 
-    public Task(Game game, String name, String description) {
+    public Task(Game game, String name, String description, int max_progess) {
         this.game = game;
         this.name = name;
         this.description = description;
+        this.max_progess = max_progess;
     }
 
     public int getId() {
@@ -62,12 +62,22 @@ public class Task {
         this.description = description;
     }
 
+    public int getMax_progess() {
+        return max_progess;
+    }
+
+    public void setMax_progess(int max_progess) {
+        this.max_progess = max_progess;
+    }
+
     @Override
     public String toString() {
         return "Task{" +
                 "id=" + id +
+                ", game=" + game +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", max_progess=" + max_progess +
                 '}';
     }
 }

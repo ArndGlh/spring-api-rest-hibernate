@@ -1,6 +1,8 @@
-<h2>{{ task.title }}</h2>
-<p>Genre : {{ task.genre }}</p>
-<p>Année : {{ task.year }}</p>
+<div *ngIf="game != undefined">
+  <h2>{{ game.title }}  -- Global Progress : {{ globalProgress | number:'1.0-2' }} %</h2>
+  <p>Genre : {{ game.genre }}</p>
+  <p>Année : {{ game.year }}</p>
+</div>
 
 <table class="table table-dark table-striped">
     <thead>
@@ -12,14 +14,14 @@
           <th scope="col">Max progress</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody *ngIf="tasks != undefined && progress != undefined">
         <ng-container *ngFor="let task of tasks; let i = index">
           <tr>
             <th scope="row">{{ i+1 }}</th>
             <td><a [routerLink]="task.id">{{ task.name }}</a></td>
             <td>{{ task.description }}</td>
-            <td>{{ task.actual_progress }}</td>
-            <td>{{ task.max_progress }}</td>
+            <td>{{ progress[i].actual_progress }}</td>
+            <td>{{ progress[i].max_progress }}</td>
           </tr>
         </ng-container>
     </tbody>

@@ -7,13 +7,8 @@ import arnaudg.web.util.RestPreconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
-import javax.ws.rs.core.Response;
-
 import java.util.List;
-
-import static com.google.common.net.HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
@@ -45,10 +40,10 @@ public class TaskController {
     /**
      * Get task by game.
      */
-    @RequestMapping(method = GET, value = "/game/{userId}/{gameId}")
+    @RequestMapping(method = GET, value = "/game/{gameId}")
     @ResponseBody
-    public List findByProgress(@PathVariable("userId") int userId, @PathVariable("gameId") int gameId) {
-        return RestPreconditions.checkFound(taskService.getByProgress(gameId, userId));
+    public List findByGame(@PathVariable("gameId") int gameId) {
+        return RestPreconditions.checkFound(taskService.getByGame(gameId));
     }
 
     /**

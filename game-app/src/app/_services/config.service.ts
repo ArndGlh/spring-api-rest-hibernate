@@ -6,6 +6,6 @@ export class ConfigService {
   constructor(private http: HttpClient) { }
 
   getGamesFromServer() {
-    return this.http.get('http://localhost:8080/api/rest/v1/task/progress');
+    return this.http.get('http://localhost:8080/api/rest/v1/game/progress');
   }
 }

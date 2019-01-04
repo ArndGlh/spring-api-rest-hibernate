@@ -7,17 +7,17 @@
               <th scope="col"><a (click)="sortByTitle()">Title</a></th>
               <th scope="col"><a (click)="sortByGenre()">Genre</a></th>
               <th scope="col"><a (click)="sortByRelease()">First release</a></th>
-              <th scope="col"><a (click)="sortByProgress()">Progress</a></th>
+              <!-- <th scope="col"><a (click)="sortByProgress()">Progress</a></th> -->
             </tr>
         </thead>
         <tbody>
-            <ng-container *ngFor="let task of games; let i = index">
+            <ng-container *ngFor="let game of games; let i = index">
               <tr>
                 <th scope="row">{{ i+1 }}</th>
-                <td><a [routerLink]="task[0].id">{{ task[0].title }}</a></td>
-                <td>{{ task[0].genre }}</td>
-                <td>{{ task[0].year }}</td>
-                <td>{{ task[1].completion }}% done</td>
+                <td><a [routerLink]="game[0]">{{ game[2] }}</a></td>
+                <td>{{ game[1] }}</td>
+                <td>{{ game[3] }}</td>
+                <!-- <td>{{ game[1].completion }}% done</td> -->
               </tr>
             </ng-container>
         </tbody>
@@ -32,11 +32,11 @@
 
 <!-- 
       <ul class="list-group">
-        <app-task  *ngFor="let task of games; let i = index"
-                       [gameTitle]="task.title"
-                       [gameGenre]="task.genre"
-                       [gameYear]="task.year"
-                       [id]="task.id"></app-task>
+        <app-game  *ngFor="let game of games; let i = index"
+                       [gameTitle]="game.title"
+                       [gameGenre]="game.genre"
+                       [gameYear]="game.year"
+                       [id]="game.id"></app-game>
       </ul>
       <button class="btn btn-primary" (click)="onSave()">Save games</button> -->
 

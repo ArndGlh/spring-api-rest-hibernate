@@ -1,6 +1,8 @@
 <div class="row">
   <div class="col-sm-8 col-sm-offset-2">
-
+    <div>
+      <span [ngStyle]="{'color': gameAdded === true ? 'green' : 'red'}">{{ gameAddedText }}</span>
+    </div>
     <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="search">Search</label>
@@ -22,18 +24,18 @@
               </tr>
           </thead>
           <tbody>
-              <ng-container *ngFor="let task of games; let i = index">
+              <ng-container *ngFor="let game of games; let i = index">
                 <tr>
                   <th scope="row">{{ i+1 }}</th>
-                  <td>{{ task.title }}</td>
-                  <td>{{ task.genre }}</td>
-                  <td>{{ task.year }}</td>
+                  <td>{{ game.title }}</td>
+                  <td>{{ game.genre }}</td>
+                  <td>{{ game.year }}</td>
                   <td>
                     <!-- <form [formGroup]="addForm" (ngSubmit)="addGame()">
-                      <input class="form-control" formControlName="id" type="hidden" value="task.id">
+                      <input class="form-control" formControlName="id" type="hidden" value="game.id">
                       <button class="btn btn-primary" type="submit" >+</button>
                     </form> -->
-                    <button class="btn btn-primary" (click)="addGame(task.id)">+</button>
+                    <button class="btn btn-primary" (click)="addGame(game.id)">+</button>
                   </td>
                 </tr>
               </ng-container>
